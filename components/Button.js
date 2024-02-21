@@ -2,29 +2,31 @@ import { StyleSheet, View, Pressable, Text } from 'react-native';
 import { colors } from '../config/color';
 
 
-export default function Button({ label, theme, onPress }) {
-    if (theme === "primary") {
-        return (
-            <View style={[styles.buttonContainer, { borderRadius: 18 }]}>
-                <Pressable
-                    style={[styles.button, { backgroundColor: colors.primary }]}
-                    onPress={onPress}
-                >
-                    <Text style={[styles.buttonLabel, { color: colors.textSecondary }]}>{label}</Text>
-                </Pressable>
-            </View >
-        );
-    }
+export default function Button({ label, theme, onPress, style }) {
+    const buttonStyles = [
+        styles.button,
+        theme === "primary" && { backgroundColor: colors.primary },
+        style
+    ];
+
+    const labelStyles = [
+        styles.buttonLabel,
+        theme === "primary" && { color: colors.textSecondary },
+    ];
 
     return (
         <View style={styles.buttonContainer}>
-            <Pressable style={styles.button}
-                onPress={onPress}>
-                <Text style={styles.buttonLabel}>{label}</Text>
+            <Pressable
+                style={buttonStyles}
+                onPress={onPress}
+            >
+                <Text style={labelStyles}>{label}</Text>
             </Pressable>
         </View>
     );
 }
+
+
 
 const styles = StyleSheet.create({
     buttonContainer: {

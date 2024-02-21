@@ -6,8 +6,9 @@ import { useForm, Controller } from "react-hook-form" // Library pour gerer les 
 import { colors } from '../config/color';
 import Button from '../components/Button';
 import CustomTextInput from '../components/CustomTextInput';
+import Logo from '../components/Logo';
 
-const PlaceholderLogo = require('../assets/logo-old.png');
+
 
 
 export default function InscriptionScreen({ navigation }) {
@@ -48,11 +49,9 @@ export default function InscriptionScreen({ navigation }) {
 
 
 
-
-
     return (
         <SafeAreaView style={styles.container}>
-            <Image source={PlaceholderLogo} />
+            <Logo />
             <View style={styles.identifiants}>
 
                 <CustomTextInput

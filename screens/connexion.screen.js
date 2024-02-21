@@ -6,8 +6,9 @@ import { useForm } from "react-hook-form" // Library pour gerer les formulaires
 import { colors } from '../config/color';
 import Button from '../components/Button';
 import CustomTextInput from '../components/CustomTextInput';
+import Logo from '../components/Logo';
 
-const PlaceholderLogo = require('../assets/logo-old.png');
+
 
 const onSigninPressed = (data) => {
     console.log(data)
@@ -22,7 +23,7 @@ export default function ConnexionScreen({ navigation }) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Image source={PlaceholderLogo} />
+            <Logo />
             <View style={styles.identifiants}>
                 <CustomTextInput
                     placeholder={"James04"}
@@ -35,11 +36,6 @@ export default function ConnexionScreen({ navigation }) {
                     secureTextEntry />
             </View>
             <View style={styles.buttonsContainer}>
-                <Button
-                    label="Inscription"
-                    onPress={() => {
-                        navigation.navigate('Inscription');
-                    }} />
                 <Button theme="primary" label="Se connecter" onPress={handleSubmit(onSigninPressed)} />
             </View>
 
@@ -76,6 +72,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         flexDirection: 'row',
         width: '100%',
-    }
+    },
+
 });
 
