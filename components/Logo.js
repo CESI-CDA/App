@@ -28,7 +28,7 @@ export default function Logo({ theme, style }) {
     return (
         <Image
             source={logoSource}
-            style={[{ width: 300, height: 100 }, style]}
+            style={[{ width: 350, height: 100 }, style]}
         />
     );
 }

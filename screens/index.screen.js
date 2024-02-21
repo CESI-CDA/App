@@ -1,36 +1,37 @@
+// Assurez-vous que vous avez correctement importé les dépendances nécessaires
 import React from 'react';
 import { SafeAreaView, StyleSheet, View, StatusBar, Image } from 'react-native';
-import Logo from '../components/Logo'; 
+import Logo from '../components/Logo'; // Assurez-vous que le chemin vers votre composant Logo est correct
 import Button from '../components/Button';
-import { useForm } from "react-hook-form"; 
+import { useForm } from "react-hook-form" // Library pour gerer les formulaires
 import { colors } from '../config/color';
 
-import FloatingAnimation from '../animations/floating.animation'; 
-
+//Image
 import shape1 from '../assets/shape1.png';
 import shape2 from '../assets/shape2.png';
+
+const onSigninPressed = (data) => {
+    console.log(data)
+}
+
+
 
 export default function IndexScreen({ navigation }) {
     const {
         control,
         handleSubmit,
         formState: { errors },
-    } = useForm();
+    } = useForm()
 
     return (    
         <SafeAreaView style={styles.container}>
-            <StatusBar style="auto" />
-
+            
             <View style={styles.shape1}>
-                <FloatingAnimation />
-                <Image source={shape1} style={{ width: '100%', height: '100%' }} resizeMode="contain" />
+            <Image source={shape1} style={{ width: '100%', height: '100%',opacity:0.9 }} resizeMode="contain" />
             </View>
-
             <View style={styles.shape2}>
-                <FloatingAnimation />
-                <Image source={shape2} style={{ width: '100%', height: '100%' }} resizeMode="contain" />
+            <Image source={shape2} style={{ width: '100%', height: '100%',opacity:0.5 }} resizeMode="contain" />
             </View>
-
             <View style={styles.logoContainer}>
                 <Logo theme="light" />
             </View>
@@ -89,4 +90,6 @@ const styles = StyleSheet.create({
         right:-10,
         top: 200,
         transform: [{ rotate: '30deg' }] },
+
+    
 });
