@@ -4,7 +4,7 @@ import { Controller } from 'react-hook-form';
 
 export default function CustomTextInput({ control, name, placeholder, secureTextEntry }) {
     return (
-        <View style={styles.identifiant}>
+        <View style={styles.countainer}>
             <Text>{name}</Text>
             <Controller
                 control={control}
@@ -36,5 +36,8 @@ const styles = StyleSheet.create({
         backgroundColor: colors.backgroundSecondary,
         borderRadius: 25,
         marginTop: 5,
+    },
+    countainer:{
+        paddingTop: 10
     }
 });
