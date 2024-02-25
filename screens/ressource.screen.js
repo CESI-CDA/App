@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   ScrollView,
   View,
@@ -14,21 +14,53 @@ import Button from "../components/Button";
 const { width } = Dimensions.get("window"); // Obtenir la largeur de l'écran
 
 const RessourceScreen = () => {
+  const [resourceData, setResourceData] = useState(null);
+  useEffect(() => {
+    const fetchResourceData = async () => {
+      try {
+        console.log('Fetching resource data...');
+        const response = await fetch('http://192.168.1.27:8000/api/ressources', {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to fetch resource data');
+        }
+  
+        const data = await response.json();
+        console.log('Resource data:', data);
+
+        // Filtrer la ressource avec l'id 1
+        const resourceId1 = data.ressources.data.find(resource => resource.id === 1);
+        setResourceData(resourceId1);
+      } catch (error) {
+        console.error('Error fetching resource data:', error);
+      }
+    };
+  
+    fetchResourceData();
+  }, []);
+  
+
   // Calculer la hauteur de l'image en fonction de la largeur de l'écran
   const imageHeight = (180 / 350) * width; // Ratio de l'image : 180 / 350
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <Text style={styles.title}>Titre de la ressource</Text>
+        <Text style={styles.title}>{resourceData?.titre_res}</Text>
 
         <Image
-          source={{
-            width: width,
-            height: imageHeight,
-            uri: "https://picsum.photos/350/280",
-          }}
-          style={styles.image}
+          source={
+            require('../assets/shape1.png')
+            //uri: ,
+          }
+        
+          style={{ width: width, height: imageHeight }}
           resizeMode="cover" // Utiliser "cover" pour remplir complètement le conteneur sans déformer l'image
         />
         <View style={styles.content}>
@@ -38,40 +70,7 @@ const RessourceScreen = () => {
             <Text style={styles.typeOfResource}>Type de ressource:</Text>
           </View>
 
-          <Text style={styles.resourceContent}>Contenu:</Text>
-
-          <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec
-            turpis a libero placerat rutrum. Vestibulum ante ipsum primis in
-            faucibus orci luctus et ultrices posuere cubilia Curae; Integer at
-            odio auctor, venenatis massa eu, gravida nunc. Mauris eu risus
-            velit. Proin euismod sem sit amet orci sodales, id feugiat metus
-            malesuada. Nunc ut sapien eget lorem luctus lobortis.
-            {"\n"}
-            {"\n"}
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec turpis a
-            libero placerat rutrum. Vestibulum ante ipsum primis in faucibus
-            orci luctus et ultrices posuere cubilia Curae; Integer at odio
-            auctor, venenatis massa eu, gravida nunc. Mauris eu risus velit.
-            Proin euismod sem sit amet orci sodales, id feugiat metus malesuada.
-            Nunc ut sapien eget lorem luctus lobortis.
-            {"\n"}
-            {"\n"}
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec turpis a libero
-            placerat rutrum. Vestibulum ante ipsum primis in faucibus orci
-            luctus et ultrices posuere cubilia Curae; Integer at odio auctor,
-            venenatis massa eu, gravida nunc. Mauris eu risus velit. Proin
-            euismod sem sit amet orci sodales, id feugiat metus malesuada. Nunc
-            ut sapien eget lorem luctus lobortis.
-            {"\n"}
-            {"\n"}
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec
-            turpis a libero placerat rutrum. Vestibulum ante ipsum primis in
-            faucibus orci luctus et ultrices posuere cubilia Curae; Integer at
-            odio auctor, venenatis massa eu, gravida nunc. Mauris eu risus
-            velit. Proin euismod sem sit amet orci sodales, id feugiat metus
-            malesuada. Nunc ut sapien eget lorem luctus lobortis.
-          </Text>
+          <Text style={styles.resourceContent}>{resourceData?.contenu_res}</Text>
         </View>
       </ScrollView>
       <View style={styles.buttonContent}>
@@ -96,10 +95,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
-  image: {
-    width: width,
-  },
-
+  
   content: {
     padding: 8,
   },

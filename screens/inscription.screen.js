@@ -22,7 +22,7 @@ export default function InscriptionScreen({ navigation }) {
         const pseudonyme = encodeURIComponent(data['Pseudonyme']);
 
         try {
-            const url = `http://127.0.0.1:8000/api/users?nom=${nom}&prenom=${prenom}&pseudonyme=${pseudonyme}&email=${mail}&password=${motDePasse}`;
+            const url = `http://192.168.1.27:8000/api/users?nom=${nom}&prenom=${prenom}&pseudonyme=${pseudonyme}&email=${mail}&password=${motDePasse}`;
             console.log('URL de la requête fetch :', url);
 
             const response = await fetch(url, {
