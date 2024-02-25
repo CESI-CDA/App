@@ -10,6 +10,8 @@ import Logo from '../components/Logo';
 
 
 
+const apiUrl = process.env.API_URL;
+
 
 export default function InscriptionScreen({ navigation }) {
     const { control, handleSubmit, formState: { errors } } = useForm(); //Formulaire
@@ -22,7 +24,7 @@ export default function InscriptionScreen({ navigation }) {
         const pseudonyme = encodeURIComponent(data['Pseudonyme']);
 
         try {
-            const url = `http://192.168.1.27:8000/api/users?nom=${nom}&prenom=${prenom}&pseudonyme=${pseudonyme}&email=${mail}&password=${motDePasse}`;
+            const url = `${apiUrl}/users?nom=${nom}&prenom=${prenom}&pseudonyme=${pseudonyme}&email=${mail}&password=${motDePasse}`;
             console.log('URL de la requête fetch :', url);
 
             const response = await fetch(url, {
