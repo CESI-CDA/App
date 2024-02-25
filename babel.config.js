@@ -1,9 +1,11 @@
 module.exports = function (api) {
-  api.cache(true);
+  api.cache(true)
+
+  const presets = ['babel-preset-expo'];
+  
+
+
   return {
-    presets: ['babel-preset-expo'],
-
-  };
-
-
+    presets
+  }
 };
