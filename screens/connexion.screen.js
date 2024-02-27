@@ -21,7 +21,7 @@ export default function ConnexionScreen({ navigation }) {
     const onSigninPressed = async (data) => {
         try {
             const { Identifiant, "Mot de passe": Motdepasse } = data;
-            console.log(Identifiant,Motdepasse)
+            console.log(Identifiant,Motdepasse)  //A ENLEVER !!!!
             await auth.signInWithEmailAndPassword(Identifiant, Motdepasse);
             navigation.navigate('Upload');
         
