@@ -21,12 +21,11 @@ Ceci est une application mobile développée avec React Native, qui repond l'app
 1. Clonez le dépôt GitHub sur votre machine locale.
 2. Assurez-vous d'avoir Node.js et npm installés sur votre machine.
 3. Exécutez `npm install` pour installer les dépendances.
-4. [Autres étapes d'installation, le cas échéant]
+
 
 ## Configuration
 
-1. [Expliquez ici comment configurer l'application pour fonctionner avec un backend ou d'autres services tiers, le cas échéant]
-2. [Exemple : Configurez Firebase en ajoutant votre configuration dans le fichier firebase.js]
+1. Pour que l'appli communique avec le back changer la variable EXPO_PUBLIC_API_URL du .env par l'ip de votre machine
 
 ## Utilisation
 
