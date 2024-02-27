@@ -1,42 +1,27 @@
 import React, { useState, useEffect } from "react";
-import {
-  ScrollView,
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Dimensions,
-  SafeAreaView,
-} from "react-native";
+import { ScrollView, View, Text, StyleSheet, Image, Dimensions, SafeAreaView } from "react-native";
 import { colors } from "../config/color";
 import Button from "../components/Button";
+import { fonts } from "../config/font";
 
-const { width } = Dimensions.get("window"); // Obtenir la largeur de l'écran
+const { width } = Dimensions.get("window"); 
+
+const apiUrl = process.env.EXPO_PUBLIC_API_URL+'/ressources/1';
 
 const RessourceScreen = () => {
   const [resourceData, setResourceData] = useState(null);
+
   useEffect(() => {
     const fetchResourceData = async () => {
       try {
-        console.log('Fetching resource data...');
-        const response = await fetch('http://192.168.1.27:8000/api/ressources', {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-        });
+        const response = await fetch(apiUrl);
   
         if (!response.ok) {
           throw new Error('Failed to fetch resource data');
         }
   
         const data = await response.json();
-        console.log('Resource data:', data);
-
-        // Filtrer la ressource avec l'id 1
-        const resourceId1 = data.ressources.data.find(resource => resource.id === 1);
-        setResourceData(resourceId1);
+        setResourceData(data.item); 
       } catch (error) {
         console.error('Error fetching resource data:', error);
       }
@@ -44,36 +29,31 @@ const RessourceScreen = () => {
   
     fetchResourceData();
   }, []);
-  
 
-  // Calculer la hauteur de l'image en fonction de la largeur de l'écran
-  const imageHeight = (180 / 350) * width; // Ratio de l'image : 180 / 350
+  const imageHeight = (180 / 350) * width;
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <Text style={styles.title}>{resourceData?.titre_res}</Text>
-
-        <Image
-          source={
-            require('../assets/shape1.png')
-            //uri: ,
-          }
-        
-          style={{ width: width, height: imageHeight }}
-          resizeMode="cover" // Utiliser "cover" pour remplir complètement le conteneur sans déformer l'image
-        />
-        <View style={styles.content}>
-          <View style={styles.header}>
-            <Text style={styles.category}>Catégorie:</Text>
-            <Text style={styles.typeOfRelation}>Types de relations:</Text>
-            <Text style={styles.typeOfResource}>Type de ressource:</Text>
-          </View>
-
-          <Text style={styles.resourceContent}>{resourceData?.contenu_res}</Text>
+        <View style={styles.imageContainer}>
+          <Image
+            source={{ uri: resourceData?.url_res }}
+            style={{ width: width, height: imageHeight }}
+            resizeMode="cover"
+          />
         </View>
+        <View style={styles.caracteristicProp}>
+            <Text style={[styles.category,fonts.caption]}>Catégorie:</Text>
+            <Text style={[styles.typeOfRelation,fonts.caption]}>Types de relations:</Text>
+            <Text style={[styles.typeOfResource,fonts.caption]}>Type de ressource:</Text>
+        </View>
+        <View style={[styles.content,styles.shadowProp]}>
+          <Text style={[styles.title, fonts.h1]}>{resourceData?.titre_res}</Text>
+          <Text style={[styles.resourceContent, fonts.body]}>{resourceData?.contenu_res}</Text>
+        </View>
+  
       </ScrollView>
-      <View style={styles.buttonContent}>
+      <View style={[styles.buttonContent]}>
         <Button theme="primary" label="Retour aux articles"></Button>
       </View>
     </SafeAreaView>
@@ -84,50 +64,56 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.backgroundPrimary,
-    justifyContent: "center",
-    alignItems: "center",
   },
-
+  caracteristicProp:{
+    height:100,
+    borderBottomWidth: 2, 
+    borderBottomColor: colors.secondary, 
+    marginLeft: 2,
+    marginRight: 50 ,
+    justifyContent: 'space-between',
+    paddingTop:10,
+    paddingBottom: 10,
+    paddingLeft : 8
+  },
   title: {
     fontSize: 20,
     marginLeft: 10,
-    fontWeight: "bold",
+    fontWeight: "bold",                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
     marginBottom: 10,
+    color: colors.textPrimary,
   },
 
-  
+  imageContainer: {
+    position: 'relative',
+  },
   content: {
     padding: 8,
-  },
-
-  header: {
-    height: 90,
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-around",
-  },
-
-  category: {
-    fontSize: 17,
-  },
-
-  typeOfRelation: {
-    fontSize: 17,
-  },
-
-  typeOfResource: {
-    fontSize: 17,
   },
 
   resourceContent: {
     fontSize: 17,
     paddingTop: 5,
     marginBottom: 10,
+    color: colors.textPrimary,
+    textAlign: 'justify',
   },
 
   buttonContent: {
     paddingTop: 10,
     paddingBottom: 10,
+    alignItems: 'center',
+  },
+  shadowProp: {
+    width: "auto",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.57,
+    shadowRadius: 15.19,
+    elevation: 23,
   },
 });
 

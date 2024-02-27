@@ -7,8 +7,8 @@ import { useForm } from "react-hook-form" // Library pour gerer les formulaires
 import { colors } from '../config/color';
 
 //Image
-import shape1 from '../assets/shape1.png';
-import shape2 from '../assets/shape2.png';
+import shape1 from '../assets/images/shape1.png';
+import shape2 from '../assets/images/shape2.png';
 
 const onSigninPressed = (data) => {
     console.log(data)
