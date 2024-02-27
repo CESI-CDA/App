@@ -1,7 +1,6 @@
-// Assurez-vous que vous avez correctement importé les dépendances nécessaires
 import React from 'react';
 import { SafeAreaView, StyleSheet, View, StatusBar, Image } from 'react-native';
-import Logo from '../components/Logo'; // Assurez-vous que le chemin vers votre composant Logo est correct
+import Logo from '../components/Logo'; 
 import Button from '../components/Button';
 import { useForm } from "react-hook-form" // Library pour gerer les formulaires
 import { colors } from '../config/color';
