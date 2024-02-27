@@ -1,6 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/storage';
-
+import 'firebase/compat/auth'
 
 const firebaseConfig = {
   apiKey: "AIzaSyB9plZLsaDbq0F5f2E8-Fj0Y65zM2PBDjw",
@@ -16,4 +16,8 @@ const firebaseConfig = {
 if (!firebase.apps.length){
     firebase.initializeApp(firebaseConfig);
 }
-export{firebase};
+
+// Exportez l'objet d'authentification Firebase
+const auth = firebase.auth(); // Récupérez l'objet d'authentification depuis Firebase
+
+export { firebase, auth };

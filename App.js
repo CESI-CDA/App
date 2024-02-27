@@ -13,7 +13,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Upload'>
+      <Stack.Navigator initialRouteName='Index'>
         <Stack.Screen name="Index" component={IndexScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Connexion" component={ConnexionScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Inscription" component={InscriptionScreen} options={{ headerShown: false }} />

@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Text, SafeAreaView, StyleSheet, TextInput, View, Image } from 'react-native';
+import { SafeAreaView, StyleSheet, View, Alert } from 'react-native';
 import React from 'react';
 import { useForm } from "react-hook-form" // Library pour gerer les formulaires
 
@@ -7,12 +7,9 @@ import { colors } from '../config/color';
 import Button from '../components/Button';
 import CustomTextInput from '../components/CustomTextInput';
 import Logo from '../components/Logo';
+import { auth } from '../config/firebase';
 
 
-
-const onSigninPressed = (data) => {
-    console.log(data)
-}
 
 export default function ConnexionScreen({ navigation }) {
     const {
@@ -21,6 +18,18 @@ export default function ConnexionScreen({ navigation }) {
         formState: { errors },
     } = useForm()
 
+    const onSigninPressed = async (data) => {
+        try {
+            const { Identifiant, "Mot de passe": Motdepasse } = data;
+            console.log(Identifiant,Motdepasse)
+            await auth.signInWithEmailAndPassword(Identifiant, Motdepasse);
+            navigation.navigate('Upload');
+        
+        } catch (error) {
+            console.error(error);
+            Alert.alert('Erreur de connexion', 'Vos identifiants sont incorrects. Veuillez réessayer.');
+        }
+    }
     return (
         <SafeAreaView style={styles.container}>
             <Logo />
