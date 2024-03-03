@@ -1,17 +1,52 @@
-import React, { useState } from "react";
-import { Text, View, StyleSheet, Dimensions, Image, ScrollView } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Dimensions,
+  Image,
+  ScrollView,
+} from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { colors } from "../config/color";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faPenClip, faCameraRetro } from "@fortawesome/free-solid-svg-icons";
 import TextInputField from "../components/TextInputField";
 
+//const apiUrl = process.env.EXPO_PUBLIC_API_URL + "/users/1";
 const UserAccountScreen = () => {
-  const [inputValue, setInputValue] = useState("");
 
-  const handleChange = (text) => {
-    setInputValue(text); 
+  // données utilisateur fictives
+  const fakeUserData = {
+    nom: "Dupont",
+    prenom: "Lila",
+    pseudonyme: "Lilaloo",
+    email: "lila.dupont@example.com",
+    motDePasse: "********",
+    url_user:
+      "https://cdn.pixabay.com/photo/2017/06/13/12/54/profile-2398783_1280.png",
   };
+  
+  const [userData, setUserData] = useState(fakeUserData);
+
+ /* useEffect(() => {
+   const fetchUserData = async () => {
+      try {
+        const response = await fetch(apiUrl);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch user data");
+        }
+
+        const data = await response.json();
+        setUserData(data.item);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);*/
 
   return (
     <SafeAreaProvider>
@@ -23,14 +58,11 @@ const UserAccountScreen = () => {
               style={styles.headerImage}
             />
           </View>
-          <Image
-            source={require("../assets/example-photo-user.jpg")}
-            style={styles.circle}
-          />
-           <View style={styles.cameraIconContainer}>
+          <Image source={{ uri: userData?.url_user }} style={styles.circle} />
+          <View style={styles.cameraIconContainer}>
             <FontAwesomeIcon icon={faCameraRetro} style={styles.cameraIcon} />
           </View>
-          <Text style={styles.username}>USERNAME</Text>
+          <Text style={styles.username}>{userData?.pseudonyme}</Text>
         </View>
         <View style={styles.body}>
           <View style={styles.bodyheader}>
@@ -41,38 +73,46 @@ const UserAccountScreen = () => {
             </View>
           </View>
           <ScrollView style={{ flex: 1 }}>
-          <View style={styles.formfield}>
-            <TextInputField
-              label="Nom"
-              placeholder="Mon nom"
-              value={inputValue}
-              onChangeText={handleChange}
-            />
-            <TextInputField
-              label="Prénom"
-              placeholder="Mon prénom"
-              value={inputValue}
-              onChangeText={handleChange}
-            />
-            <TextInputField
-              label="Pseudonyme"
-              placeholder="Mon pseudonyme"
-              value={inputValue}
-              onChangeText={handleChange}
-            />
-            <TextInputField
-              label="Email"
-              placeholder="Mon adresse mail"
-              value={inputValue}
-              onChangeText={handleChange}
-            />
-            <TextInputField
-              label="Mot de passe"
-              placeholder="**************"
-              value={inputValue}
-              onChangeText={handleChange}
-            />
-          </View>
+            <View style={styles.formfield}>
+              <TextInputField
+                style={styles.input}
+                placeholder="Mon nom"
+                value={userData?.nom}
+                onChangeText={(text) => setUserData({ ...userData, nom: text })}
+              />
+              <TextInputField
+                style={styles.input}
+                placeholder="Mon prénom"
+                value={userData?.prenom}
+                onChangeText={(text) =>
+                  setUserData({ ...userData, prenom: text })
+                }
+              />
+              <TextInputField
+                style={styles.input}
+                placeholder="Mon pseudonyme"
+                value={userData?.pseudonyme}
+                onChangeText={(text) =>
+                  setUserData({ ...userData, pseudonyme: text })
+                }
+              />
+              <TextInputField
+                style={styles.input}
+                placeholder="Mon adresse mail"
+                value={userData?.email}
+                onChangeText={(text) =>
+                  setUserData({ ...userData, email: text })
+                }
+              />
+              <TextInputField
+                style={styles.input}
+                placeholder="**************"
+                value={userData?.motDePasse}
+                onChangeText={(text) =>
+                  setUserData({ ...userData, motDePasse: text })
+                }
+              />
+            </View>
           </ScrollView>
         </View>
       </SafeAreaView>
@@ -107,6 +147,7 @@ const styles = StyleSheet.create({
     lineHeight: 210,
     fontFamily: "Roboto-Light",
     fontSize: 18,
+    textTransform: "uppercase"
   },
   circle: {
     position: "absolute",
@@ -126,7 +167,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     marginRight: 120,
-    marginBottom: 60
+    marginBottom: 60,
   },
   cameraIcon: {
     color: "#000",
