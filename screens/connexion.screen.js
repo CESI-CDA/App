@@ -1,7 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { Text, SafeAreaView, StyleSheet, TextInput, View, Image } from 'react-native';
-import React from 'react';
-import { useForm } from "react-hook-form" // Library pour gerer les formulaires
+import { StatusBar } from "expo-status-bar";
+import {
+  Text,
+  SafeAreaView,
+  StyleSheet,
+  TextInput,
+  View,
+  Image,
+} from "react-native";
+import React from "react";
+import { useForm } from "react-hook-form"; // Library pour gérer les formulaires
 
 import { colors } from '../config/color';
 import Button from '../components/Button';
@@ -11,15 +18,15 @@ import Logo from '../components/Logo';
 
 
 const onSigninPressed = (data) => {
-    console.log(data)
-}
+  console.log(data);
+};
 
 export default function ConnexionScreen({ navigation }) {
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-    } = useForm()
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
     return (
         <SafeAreaView style={styles.container}>
@@ -39,9 +46,9 @@ export default function ConnexionScreen({ navigation }) {
                 <Button theme="primary" label="Se connecter" onPress={handleSubmit(onSigninPressed)} />
             </View>
 
-            <StatusBar style="auto" />
-        </SafeAreaView>
-    );
+      <StatusBar style="auto" />
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -75,4 +82,3 @@ const styles = StyleSheet.create({
     },
 
 });
-

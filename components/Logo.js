@@ -1,9 +1,9 @@
 import React from 'react';
 import { Image } from 'react-native';
 
-import LogoLight from '../assets/1-background-remove.png';
-import LogoDark from '../assets/2-background-remove.png';
-import LogoColorful from '../assets/3-background-remove.png';
+import LogoLight from '../assets/images/1-background-remove.png';
+import LogoDark from '../assets/images/2-background-remove.png';
+import LogoColorful from '../assets/images/3-background-remove.png';
 
 
 
