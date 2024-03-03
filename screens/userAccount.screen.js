@@ -15,7 +15,6 @@ import TextInputField from "../components/TextInputField";
 
 //const apiUrl = process.env.EXPO_PUBLIC_API_URL + "/users/1";
 const UserAccountScreen = () => {
-
   // données utilisateur fictives
   const fakeUserData = {
     nom: "Dupont",
@@ -26,10 +25,12 @@ const UserAccountScreen = () => {
     url_user:
       "https://cdn.pixabay.com/photo/2017/06/13/12/54/profile-2398783_1280.png",
   };
-  
-  const [userData, setUserData] = useState(fakeUserData);
 
- /* useEffect(() => {
+  const [userData, setUserData] = useState(fakeUserData);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isEditingMode, setIsEditingMode] = useState(false); // État pour gérer le mode d'édition du bouton
+
+  /* useEffect(() => {
    const fetchUserData = async () => {
       try {
         const response = await fetch(apiUrl);
@@ -48,6 +49,11 @@ const UserAccountScreen = () => {
     fetchUserData();
   }, []);*/
 
+  const handleEditProfile = () => {
+    setIsEditing(!isEditing);
+    setIsEditingMode(!isEditingMode); // Inverse le mode d'édition du bouton
+  };
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -65,52 +71,68 @@ const UserAccountScreen = () => {
           <Text style={styles.username}>{userData?.pseudonyme}</Text>
         </View>
         <View style={styles.body}>
-          <View style={styles.bodyheader}>
-            <Text style={styles.bodytitle}>Mes infos</Text>
-            <View style={styles.modifyprofile}>
-              <FontAwesomeIcon icon={faPenClip} />
-              <Text style={styles.textmodifyprofile}>Modifier le Profil</Text>
-            </View>
-          </View>
           <ScrollView style={{ flex: 1 }}>
+            <View style={styles.bodyheader}>
+              <Text style={styles.bodytitle}>Mes infos</Text>
+              <View style={styles.modifyprofile}>
+                <FontAwesomeIcon icon={faPenClip} />
+                <Text
+                  style={styles.textmodifyprofile}
+                  onPress={handleEditProfile}
+                >
+                  {isEditingMode
+                    ? "Valider les modifications"
+                    : "Modifier le Profil"}
+                </Text>
+              </View>
+            </View>
             <View style={styles.formfield}>
               <TextInputField
                 style={styles.input}
+                label="Nom"
                 placeholder="Mon nom"
                 value={userData?.nom}
                 onChangeText={(text) => setUserData({ ...userData, nom: text })}
+                editable={isEditing}
               />
               <TextInputField
                 style={styles.input}
+                label="Prénom"
                 placeholder="Mon prénom"
                 value={userData?.prenom}
                 onChangeText={(text) =>
                   setUserData({ ...userData, prenom: text })
                 }
+                editable={isEditing}
               />
               <TextInputField
                 style={styles.input}
+                label="Pseudonyme"
                 placeholder="Mon pseudonyme"
                 value={userData?.pseudonyme}
                 onChangeText={(text) =>
                   setUserData({ ...userData, pseudonyme: text })
                 }
+                editable={isEditing}
               />
               <TextInputField
                 style={styles.input}
-                placeholder="Mon adresse mail"
+                label="Mail"
                 value={userData?.email}
                 onChangeText={(text) =>
-                  setUserData({ ...userData, email: text })
+                  setUserData({ ...userData, motDePasse: text })
                 }
+                editable={false}
               />
               <TextInputField
                 style={styles.input}
+                label="Mot de passe"
                 placeholder="**************"
                 value={userData?.motDePasse}
                 onChangeText={(text) =>
                   setUserData({ ...userData, motDePasse: text })
                 }
+                editable={isEditing}
               />
             </View>
           </ScrollView>
@@ -147,7 +169,7 @@ const styles = StyleSheet.create({
     lineHeight: 210,
     fontFamily: "Roboto-Light",
     fontSize: 18,
-    textTransform: "uppercase"
+    textTransform: "uppercase",
   },
   circle: {
     position: "absolute",
