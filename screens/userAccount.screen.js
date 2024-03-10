@@ -6,52 +6,147 @@ import {
   Dimensions,
   Image,
   ScrollView,
+  Alert,
 } from "react-native";
+import Button from "../components/Button";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { colors } from "../config/color";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faPenClip, faCameraRetro } from "@fortawesome/free-solid-svg-icons";
 import TextInputField from "../components/TextInputField";
+import { useNavigation } from "@react-navigation/native";
 
-//const apiUrl = process.env.EXPO_PUBLIC_API_URL + "/users/1";
+// URL de l'API
+const apiUrl = process.env.EXPO_PUBLIC_API_URL + "/users/3";
+
 const UserAccountScreen = () => {
-  // données utilisateur fictives
-  const fakeUserData = {
-    nom: "Dupont",
-    prenom: "Lila",
-    pseudonyme: "Lilaloo",
-    email: "lila.dupont@example.com",
-    motDePasse: "********",
-    url_user:
-      "https://cdn.pixabay.com/photo/2017/06/13/12/54/profile-2398783_1280.png",
-  };
+  const [userData, setUserData] = useState(null);
+  const [isEditingInput, setIsEditingInput] = useState(false);
+  const [isEditingMode, setIsEditingMode] = useState(false);
+  const [modifiedUserData, setModifiedUserData] = useState({});
+  const navigation = useNavigation();
 
-  const [userData, setUserData] = useState(fakeUserData);
-  const [isEditing, setIsEditing] = useState(false);
-  const [isEditingMode, setIsEditingMode] = useState(false); // État pour gérer le mode d'édition du bouton
+  useEffect(() => {
 
-  /* useEffect(() => {
-   const fetchUserData = async () => {
+    // Fonction pour récupérer les données de l'utilisateur
+    const fetchUserData = async () => {
       try {
         const response = await fetch(apiUrl);
 
         if (!response.ok) {
-          throw new Error("Failed to fetch user data");
+          throw new Error(
+            "Échec de la récupération des données de l'utilisateur"
+          );
         }
 
         const data = await response.json();
         setUserData(data.item);
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error(
+          "Erreur lors de la récupération des données de l'utilisateur:",
+          error
+        );
       }
     };
 
     fetchUserData();
-  }, []);*/
+  }, []);
 
+  // Fonction pour mettre à jour les informations de l'utilisateur
+  const handleUpdateProfile = async () => {
+    try {
+        const response = await fetch(apiUrl, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(modifiedUserData),
+      });
+
+      // Affichage des données envoyées pour la mise à jour
+      console.log("Données envoyées pour la mise à jour :", modifiedUserData);
+      if (!response.ok) {
+        throw new Error(
+          "Échec de la mise à jour des informations de l'utilisateur"
+        );
+      }
+
+      // Affichage d'un message de confirmation
+      Alert.alert(
+        "Succès",
+        "Vos informations ont été mises à jour avec succès."
+      );
+
+      // Réinitialiser le mode d'édition des inputs
+      setIsEditingInput(false);
+      // Réinitialiser le mode d'édition du bouton supprimer/valider
+      setIsEditingMode(false);
+
+    } catch (error) {
+      console.error(
+        "Erreur lors de la mise à jour des informations de l'utilisateur:",
+        error
+      );
+      Alert.alert("Erreur", "Échec de la mise à jour de vos informations.");
+    }
+  };
+
+  // Fonction pour supprimer le compte de l'utilisateur
+  const handleDeleteProfile = async () => {
+    try {
+      const response = await fetch(apiUrl, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Échec de la suppression de l'utilisateur");
+      }
+
+      // Affichage d'un message de confirmation avant la redirection
+      Alert.alert("Confirmation", "Votre compte a été supprimé avec succès.", [
+        {
+          text: "OK",
+          onPress: () => {
+            navigation.navigate("Index");
+          },
+        },
+      ]);
+    } catch (error) {
+      console.error("Erreur lors de la suppression de l'utilisateur:", error);
+      Alert.alert("Error", "Échec de la suppression de votre compte.");
+    }
+  };
+
+  // Fonction pour afficher la boîte de dialogue de confirmation de suppression du compte
+  const confirmDelete = () => {
+    Alert.alert(
+      "Confirmation",
+      "Êtes-vous sûr de vouloir supprimer votre compte?",
+      [
+        { text: "Annuler", style: "cancel" },
+        {
+          text: "Supprimer",
+          onPress: handleDeleteProfile,
+          style: "destructive",
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
+  // Fonction pour activer/désactiver le mode d'édition du profil
   const handleEditProfile = () => {
-    setIsEditing(!isEditing);
-    setIsEditingMode(!isEditingMode); // Inverse le mode d'édition du bouton
+    setIsEditingInput(!isEditingInput);
+    setIsEditingMode(!isEditingMode); // Inverse le mode Valider mes modifications versus supprimer mon compte
+  };
+
+  // Fonction pour gérer les modifications des champs de l'utilisateur
+  const handleChange = (field, value) => {
+    setUserData((prevUserData) => ({ ...prevUserData, [field]: value })); // Met à jour userData
+    setModifiedUserData((prevModifiedUserData) => ({
+      ...prevModifiedUserData,
+      [field]: value,
+    })); // Met à jour modifiedUserData
   };
 
   return (
@@ -64,7 +159,12 @@ const UserAccountScreen = () => {
               style={styles.headerImage}
             />
           </View>
-          <Image source={{ uri: userData?.url_user }} style={styles.circle} />
+          <Image
+            source={{
+              uri: /*userData?.photo_profil ||*/ "https://cdn.pixabay.com/photo/2017/06/13/12/54/profile-2398783_1280.png",
+            }}
+            style={styles.circle}
+          />
           <View style={styles.cameraIconContainer}>
             <FontAwesomeIcon icon={faCameraRetro} style={styles.cameraIcon} />
           </View>
@@ -81,8 +181,8 @@ const UserAccountScreen = () => {
                   onPress={handleEditProfile}
                 >
                   {isEditingMode
-                    ? "Valider les modifications"
-                    : "Modifier le Profil"}
+                    ? "Annuler les modifications"
+                    : "Modifier mon Profil"}
                 </Text>
               </View>
             </View>
@@ -92,56 +192,50 @@ const UserAccountScreen = () => {
                 label="Nom"
                 placeholder="Mon nom"
                 value={userData?.nom}
-                onChangeText={(text) => setUserData({ ...userData, nom: text })}
-                editable={isEditing}
+                onChangeText={(text) => handleChange("nom", text)} 
+                editable={isEditingInput}
               />
               <TextInputField
                 style={styles.input}
                 label="Prénom"
                 placeholder="Mon prénom"
                 value={userData?.prenom}
-                onChangeText={(text) =>
-                  setUserData({ ...userData, prenom: text })
-                }
-                editable={isEditing}
+                onChangeText={(text) => handleChange("prenom", text)} 
+                editable={isEditingInput}
               />
               <TextInputField
                 style={styles.input}
                 label="Pseudonyme"
                 placeholder="Mon pseudonyme"
                 value={userData?.pseudonyme}
-                onChangeText={(text) =>
-                  setUserData({ ...userData, pseudonyme: text })
-                }
-                editable={isEditing}
+                onChangeText={(text) => handleChange("pseudonyme", text)} 
+                editable={isEditingInput}
               />
               <TextInputField
                 style={styles.input}
                 label="Mail"
+                placeholder="Mon adresse mail"
                 value={userData?.email}
                 onChangeText={(text) =>
-                  setUserData({ ...userData, motDePasse: text })
+                  setUserData({ ...userData, email: text })
                 }
                 editable={false}
-              />
-              <TextInputField
-                style={styles.input}
-                label="Mot de passe"
-                placeholder="**************"
-                value={userData?.motDePasse}
-                onChangeText={(text) =>
-                  setUserData({ ...userData, motDePasse: text })
-                }
-                editable={isEditing}
               />
             </View>
           </ScrollView>
         </View>
+        <Button
+          label={
+            isEditingMode ? "Valider mes modifications" : "Supprimer mon compte"
+          }
+          theme="primary"
+          onPress={isEditingMode ? handleUpdateProfile : confirmDelete}
+          style={styles.deleteButton}
+        />
       </SafeAreaView>
     </SafeAreaProvider>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -217,7 +311,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    width: 110,
+    width: 125,
     height: 30,
     backgroundColor: "#D9D9D9",
     borderRadius: 5,
