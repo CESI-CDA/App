@@ -7,51 +7,10 @@ import InscriptionScreen from "./screens/inscription.screen.js";
 import ConnexionScreen from "./screens/connexion.screen.js";
 import RessourceScreen from "./screens/ressource.screen.js";
 import IndexScreen from "./screens/index.screen.js";
-import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { colors } from "./config/color.js";
+import tabNav from "./components/TabNav";
 
 const Stack = createNativeStackNavigator();
-const Tab = createMaterialBottomTabNavigator();
-
-function TabNav() {
-  return (
-    <Tab.Navigator
-      initialRouteName="Ressource"
-      barStyle={{ backgroundColor: colors.backgroundSecondary }}
-      activeColor={colors.primary}
-      inactiveColor={colors.secondary}
-    >
-      <Tab.Screen
-        name="Index"
-        component={IndexScreen}
-        options={{
-          tabBarIcon: () => (
-            <MaterialCommunityIcons
-              name="account"
-              color={colors.primary}
-              size={32}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Ressource"
-        component={RessourceScreen}
-        options={{
-          tabBarIcon: () => (
-            <MaterialCommunityIcons
-              name="home"
-              color={colors.primary}
-              size={32}
-            />
-          ),
-        }}
-      />
-    </Tab.Navigator>
-  );
-}
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -71,8 +30,8 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
-            name="TabNav"
-            component={TabNav}
+            name="tabNav"
+            component={tabNav}
             options={{ headerShown: false }}
           />
           <Stack.Screen
