@@ -17,13 +17,12 @@ import TextInputField from "../components/TextInputField";
 import { useNavigation } from "@react-navigation/native";
 
 // URL de l'API
-const apiUrl = process.env.EXPO_PUBLIC_API_URL + "/users/3";
+const apiUrl = process.env.EXPO_PUBLIC_API_URL + "/users/4";
 
 const UserAccountScreen = () => {
   const [userData, setUserData] = useState(null);
   const [isEditingInput, setIsEditingInput] = useState(false);
   const [isEditingMode, setIsEditingMode] = useState(false);
-  const [modifiedUserData, setModifiedUserData] = useState({});
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -52,6 +51,8 @@ const UserAccountScreen = () => {
     fetchUserData();
   }, []);
 
+
+
   // Fonction pour mettre à jour les informations de l'utilisateur
   const handleUpdateProfile = async () => {
     try {
@@ -60,11 +61,11 @@ const UserAccountScreen = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(modifiedUserData),
+        body: JSON.stringify(userData), // Envoyer toutes les données utilisateur
       });
 
       // Affichage des données envoyées pour la mise à jour
-      console.log("Données envoyées pour la mise à jour :", modifiedUserData);
+      console.log("Données envoyées pour la mise à jour :", userData);
       if (!response.ok) {
         throw new Error(
           "Échec de la mise à jour des informations de l'utilisateur"
@@ -90,6 +91,15 @@ const UserAccountScreen = () => {
       Alert.alert("Erreur", "Échec de la mise à jour de vos informations.");
     }
   };
+
+     // Fonction pour gérer les modifications des champs de l'utilisateur
+const handleChange = (field, value) => {
+  // Met à jour userData
+  setUserData((prevUserData) => {
+    console.log(`Champ ${field} mis à jour avec la valeur : ${value}`);
+    return { ...prevUserData, [field]: value };
+  });
+};
 
   // Fonction pour supprimer le compte de l'utilisateur
   const handleDeleteProfile = async () => {
@@ -140,14 +150,7 @@ const UserAccountScreen = () => {
     setIsEditingMode(!isEditingMode); // Inverse le mode Valider mes modifications versus supprimer mon compte
   };
 
-  // Fonction pour gérer les modifications des champs de l'utilisateur
-  const handleChange = (field, value) => {
-    setUserData((prevUserData) => ({ ...prevUserData, [field]: value })); // Met à jour userData
-    setModifiedUserData((prevModifiedUserData) => ({
-      ...prevModifiedUserData,
-      [field]: value,
-    })); // Met à jour modifiedUserData
-  };
+
 
   return (
     <SafeAreaProvider>
@@ -161,7 +164,7 @@ const UserAccountScreen = () => {
           </View>
           <Image
             source={{
-              uri: /*userData?.photo_profil ||*/ "https://cdn.pixabay.com/photo/2017/06/13/12/54/profile-2398783_1280.png",
+              uri: userData?.photo_profil || "https://cdn.pixabay.com/photo/2017/06/13/12/54/profile-2398783_1280.png",
             }}
             style={styles.circle}
           />
