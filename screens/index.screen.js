@@ -9,9 +9,7 @@ import { colors } from "../config/color";
 //Image
 import shape1 from "../assets/images/shape1.png";
 import shape2 from "../assets/images/shape2.png";
-import ConnexionScreen from "./connexion.screen";
-import InscriptionScreen from "./inscription.screen";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 
 const onSigninPressed = (data) => {
   console.log(data);

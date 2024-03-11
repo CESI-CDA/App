@@ -26,7 +26,6 @@ const UserAccountScreen = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-
     // Fonction pour récupérer les données de l'utilisateur
     const fetchUserData = async () => {
       try {
@@ -51,12 +50,10 @@ const UserAccountScreen = () => {
     fetchUserData();
   }, []);
 
-
-
   // Fonction pour mettre à jour les informations de l'utilisateur
   const handleUpdateProfile = async () => {
     try {
-        const response = await fetch(apiUrl, {
+      const response = await fetch(apiUrl, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +79,6 @@ const UserAccountScreen = () => {
       setIsEditingInput(false);
       // Réinitialiser le mode d'édition du bouton supprimer/valider
       setIsEditingMode(false);
-
     } catch (error) {
       console.error(
         "Erreur lors de la mise à jour des informations de l'utilisateur:",
@@ -91,15 +87,6 @@ const UserAccountScreen = () => {
       Alert.alert("Erreur", "Échec de la mise à jour de vos informations.");
     }
   };
-
-     // Fonction pour gérer les modifications des champs de l'utilisateur
-const handleChange = (field, value) => {
-  // Met à jour userData
-  setUserData((prevUserData) => {
-    console.log(`Champ ${field} mis à jour avec la valeur : ${value}`);
-    return { ...prevUserData, [field]: value };
-  });
-};
 
   // Fonction pour supprimer le compte de l'utilisateur
   const handleDeleteProfile = async () => {
@@ -150,8 +137,6 @@ const handleChange = (field, value) => {
     setIsEditingMode(!isEditingMode); // Inverse le mode Valider mes modifications versus supprimer mon compte
   };
 
-
-
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -164,7 +149,9 @@ const handleChange = (field, value) => {
           </View>
           <Image
             source={{
-              uri: userData?.photo_profil || "https://cdn.pixabay.com/photo/2017/06/13/12/54/profile-2398783_1280.png",
+              uri:
+                userData?.photo_profil ||
+                "https://cdn.pixabay.com/photo/2017/06/13/12/54/profile-2398783_1280.png",
             }}
             style={styles.circle}
           />
@@ -195,7 +182,7 @@ const handleChange = (field, value) => {
                 label="Nom"
                 placeholder="Mon nom"
                 value={userData?.nom}
-                onChangeText={(text) => handleChange("nom", text)} 
+                onChangeText={(text) => handleChange("nom", text)}
                 editable={isEditingInput}
               />
               <TextInputField
@@ -203,7 +190,7 @@ const handleChange = (field, value) => {
                 label="Prénom"
                 placeholder="Mon prénom"
                 value={userData?.prenom}
-                onChangeText={(text) => handleChange("prenom", text)} 
+                onChangeText={(text) => handleChange("prenom", text)}
                 editable={isEditingInput}
               />
               <TextInputField
@@ -211,7 +198,7 @@ const handleChange = (field, value) => {
                 label="Pseudonyme"
                 placeholder="Mon pseudonyme"
                 value={userData?.pseudonyme}
-                onChangeText={(text) => handleChange("pseudonyme", text)} 
+                onChangeText={(text) => handleChange("pseudonyme", text)}
                 editable={isEditingInput}
               />
               <TextInputField
@@ -239,6 +226,7 @@ const handleChange = (field, value) => {
     </SafeAreaProvider>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -331,6 +319,13 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15,
     marginTop: 20,
+  },
+  deleteButton: {
+    marginBottom: 10,
+  },
+  tabNavContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
   },
 });
 

@@ -3,9 +3,10 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { colors } from "../config/color";
 import IndexScreen from "../screens/index.screen";
 import RessourceScreen from "../screens/ressource.screen";
+import UserAccountScreen from "../screens/userAccount.screen";
 const Tab = createMaterialBottomTabNavigator();
 
-export default function tabNav() {
+export default function TabNav() {
   return (
     <Tab.Navigator
       initialRouteName="Ressource"
@@ -14,8 +15,8 @@ export default function tabNav() {
       inactiveColor={colors.secondary}
     >
       <Tab.Screen
-        name="Index"
-        component={IndexScreen}
+        name="UserAccount"
+        component={UserAccountScreen}
         options={{
           tabBarIcon: () => (
             <MaterialCommunityIcons

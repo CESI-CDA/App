@@ -3,9 +3,7 @@ import {
   Text,
   SafeAreaView,
   StyleSheet,
-  TextInput,
-  View,
-  Image,
+  View
 } from "react-native";
 import React from "react";
 import { useForm } from "react-hook-form"; // Library pour gérer les formulaires
