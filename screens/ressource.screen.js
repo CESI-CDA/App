@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, View, Text, StyleSheet, Image, Dimensions, SafeAreaView } from "react-native";
+import {
+  ScrollView,
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Dimensions,
+  SafeAreaView,
+} from "react-native";
 import { colors } from "../config/color";
 import Button from "../components/Button";
 import { fonts } from "../config/font";
 
-const { width } = Dimensions.get("window"); 
+const { width } = Dimensions.get("window");
 
-const apiUrl = process.env.EXPO_PUBLIC_API_URL+'/ressources/1';
+const apiUrl = process.env.EXPO_PUBLIC_API_URL + "/ressources/1";
 
 const RessourceScreen = () => {
   const [resourceData, setResourceData] = useState(null);
@@ -15,18 +23,18 @@ const RessourceScreen = () => {
     const fetchResourceData = async () => {
       try {
         const response = await fetch(apiUrl);
-  
+
         if (!response.ok) {
-          throw new Error('Failed to fetch resource data');
+          throw new Error("Failed to fetch resource data");
         }
-  
+
         const data = await response.json();
-        setResourceData(data.item); 
+        setResourceData(data.item);
       } catch (error) {
-        console.error('Error fetching resource data:', error);
+        console.error("Error fetching resource data:", error);
       }
     };
-  
+
     fetchResourceData();
   }, []);
 
@@ -43,15 +51,22 @@ const RessourceScreen = () => {
           />
         </View>
         <View style={styles.caracteristicProp}>
-            <Text style={[styles.category,fonts.caption]}>Catégorie:</Text>
-            <Text style={[styles.typeOfRelation,fonts.caption]}>Types de relations:</Text>
-            <Text style={[styles.typeOfResource,fonts.caption]}>Type de ressource:</Text>
+          <Text style={[styles.category, fonts.caption]}>Catégorie:</Text>
+          <Text style={[styles.typeOfRelation, fonts.caption]}>
+            Types de relations:
+          </Text>
+          <Text style={[styles.typeOfResource, fonts.caption]}>
+            Type de ressource:
+          </Text>
         </View>
-        <View style={[styles.content,styles.shadowProp]}>
-          <Text style={[styles.title, fonts.h1]}>{resourceData?.titre_res}</Text>
-          <Text style={[styles.resourceContent, fonts.body]}>{resourceData?.contenu_res}</Text>
+        <View style={[styles.content, styles.shadowProp]}>
+          <Text style={[styles.title, fonts.h1]}>
+            {resourceData?.titre_res}
+          </Text>
+          <Text style={[styles.resourceContent, fonts.body]}>
+            {resourceData?.contenu_res}
+          </Text>
         </View>
-  
       </ScrollView>
       <View style={[styles.buttonContent]}>
         <Button theme="primary" label="Retour aux articles"></Button>
@@ -65,27 +80,27 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.backgroundPrimary,
   },
-  caracteristicProp:{
-    height:100,
-    borderBottomWidth: 2, 
-    borderBottomColor: colors.secondary, 
+  caracteristicProp: {
+    height: 100,
+    borderBottomWidth: 2,
+    borderBottomColor: colors.secondary,
     marginLeft: 2,
-    marginRight: 50 ,
-    justifyContent: 'space-between',
-    paddingTop:10,
+    marginRight: 50,
+    justifyContent: "space-between",
+    paddingTop: 10,
     paddingBottom: 10,
-    paddingLeft : 8
+    paddingLeft: 8,
   },
   title: {
     fontSize: 20,
     marginLeft: 10,
-    fontWeight: "bold",                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+    fontWeight: "bold",
     marginBottom: 10,
     color: colors.textPrimary,
   },
 
   imageContainer: {
-    position: 'relative',
+    position: "relative",
   },
   content: {
     padding: 8,
@@ -96,13 +111,13 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     marginBottom: 10,
     color: colors.textPrimary,
-    textAlign: 'justify',
+    textAlign: "justify",
   },
 
   buttonContent: {
     paddingTop: 10,
     paddingBottom: 10,
-    alignItems: 'center',
+    alignItems: "center",
   },
   shadowProp: {
     width: "auto",
