@@ -8,7 +8,8 @@ import ConnexionScreen from "./screens/connexion.screen.js";
 import RessourceScreen from "./screens/ressource.screen.js";
 import IndexScreen from "./screens/index.screen.js";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import tabNav from "./components/TabNav";
+import TabNav from "./components/TabNav";
+import UserAccountScreen from "./screens/userAccount.screen.js";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,8 +31,8 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
-            name="tabNav"
-            component={tabNav}
+            name="TabNav"
+            component={TabNav}
             options={{ headerShown: false }}
           />
           <Stack.Screen
@@ -52,6 +53,11 @@ export default function App() {
           <Stack.Screen
             name="Ressource"
             component={RessourceScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="UserAccount"
+            component={UserAccountScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
