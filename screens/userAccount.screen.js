@@ -88,6 +88,15 @@ const UserAccountScreen = () => {
     }
   };
 
+  // Fonction pour gérer les modifications des champs de l'utilisateur
+  const handleChange = (field, value) => {
+    // Met à jour userData
+    setUserData((prevUserData) => {
+      console.log(`Champ ${field} mis à jour avec la valeur : ${value}`);
+      return { ...prevUserData, [field]: value };
+    });
+  };
+
   // Fonction pour supprimer le compte de l'utilisateur
   const handleDeleteProfile = async () => {
     try {
