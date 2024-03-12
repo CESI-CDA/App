@@ -29,7 +29,7 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName='Index'>
           <Stack.Screen
             name="TabNav"
             component={TabNav}
