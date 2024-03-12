@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, ScrollView, View } from 'react-native';
-import RessourceCard from '../components/RessourceCard';
-import { colors } from '../config/color';
+import React, { useEffect, useState } from "react";
+import { StyleSheet, ScrollView, View } from "react-native";
+import RessourceCard from "../components/RessourceCard";
+import { colors } from "../config/color";
 
 export default function RessourcesList(props) {
   const [ressources, setRessources] = useState([]);
+  const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 
   useEffect(() => {
-    fetch('http://192.168.1.17:8000/api/ressources')
+    fetch(apiUrl + "/ressources")
       .then((response) => response.json())
       .then((data) => {
-        setRessources(data.ressources.data);
+        setRessources(data.items.data);
       })
-      .catch((error) => console.error('Error fetching data:', error));
+      .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
   return (
@@ -20,7 +21,8 @@ export default function RessourcesList(props) {
       <View style={styles.centeredContent}>
         {ressources.map((resource) => (
           <RessourceCard
-            key={resource.id}
+            key={resource.titre_res}
+            id={resource.id}
             title={resource.titre_res}
             description={resource.contenu_res}
           />
@@ -34,12 +36,14 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.backgroundSecondary,
     flexGrow: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
   },
   centeredContent: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "80%",
   },
 });
