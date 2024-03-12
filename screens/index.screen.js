@@ -11,9 +11,8 @@ import shape1 from "../assets/images/shape1.png";
 import shape2 from "../assets/images/shape2.png";
 
 
-const onSigninPressed = (data) => {
-  console.log(data);
-};
+
+
 
 export default function IndexScreen({ navigation }) {
   const {
@@ -42,24 +41,24 @@ export default function IndexScreen({ navigation }) {
         <Logo theme="light" />
       </View>
 
-      <View style={styles.buttonsContainer}>
-        <Button
-          label="Se connecter"
-          style={styles.button}
-          onPress={() => {
-            navigation.navigate("Connexion");
-          }}
-        />
-        <Button
-          theme="primary"
-          label="Inscription"
-          onPress={() => {
-            navigation.navigate("Inscription");
-          }}
-        />
-      </View>
-    </SafeAreaView>
-  );
+            <View style={styles.buttonsContainer}>
+                <Button
+                    label="Se connecter"
+                    style={styles.button}
+                    onPress={() => {
+                        navigation.navigate('Connexion');
+                    }}
+                />
+                <Button
+                    theme="primary"
+                    label="S'inscrire"
+                    onPress={() => {
+                        navigation.navigate('Inscription');
+                    }}
+                />
+            </View>
+        </SafeAreaView>
+    );
 }
 
 const styles = StyleSheet.create({
