@@ -46,7 +46,7 @@ export default function IndexScreen({ navigation }) {
                 />
                 <Button
                     theme="primary"
-                    label="Inscription"
+                    label="S'inscrire"
                     onPress={() => {
                         navigation.navigate('Inscription');
                     }}

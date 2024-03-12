@@ -51,9 +51,9 @@ const RessourceScreen = () => {
           />
         </View>
         <View style={styles.characteristicProp}>
-          <Text style={[styles.category, fonts.caption]}>Catégorie:</Text>
-          <Text style={[styles.typeOfRelation, fonts.caption]}>Types de relations:</Text>
-          <Text style={[styles.typeOfResource, fonts.caption]}>Type de ressource:</Text>
+          <Text style={[styles.category, fonts.caption]}>Catégorie : {resourceData?.get_categorie_ressource.intitule_cat}</Text>
+          <Text style={[styles.typeOfRelation, fonts.caption]}>Types de relations : {resourceData?.get_relation_ressource.intitule_rel}</Text>
+          <Text style={[styles.typeOfResource, fonts.caption]}>Type de ressource : {resourceData?.get_type_ressource.intitule_type_res}</Text>
         </View>
         <View style={styles.content}>
           <Text style={[styles.title, fonts.h1]}>{resourceData?.titre_res}</Text>
