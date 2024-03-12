@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFonts } from "expo-font";
 
+import RessourcesList from "./screens/ressources_list.screen"
 import InscriptionScreen from "./screens/inscription.screen.js";
 import ConnexionScreen from "./screens/connexion.screen.js";
 import RessourceScreen from "./screens/ressource.screen.js";
@@ -53,6 +54,11 @@ export default function App() {
           <Stack.Screen
             name="Ressource"
             component={RessourceScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Ressources"
+            component={RessourcesList}
             options={{ headerShown: false }}
           />
           <Stack.Screen
