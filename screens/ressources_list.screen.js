@@ -3,7 +3,7 @@ import { StyleSheet, ScrollView, View } from "react-native";
 import RessourceCard from "../components/RessourceCard";
 import { colors } from "../config/color";
 
-export default function RessourcesList(props) {
+export default function RessourcesList({ navigation }) { 
   const [ressources, setRessources] = useState([]);
   const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 
@@ -25,6 +25,7 @@ export default function RessourcesList(props) {
             id={resource.id}
             title={resource.titre_res}
             description={resource.contenu_res}
+            navigation={navigation}
           />
         ))}
       </View>

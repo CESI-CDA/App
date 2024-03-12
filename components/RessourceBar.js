@@ -24,7 +24,8 @@ export default function RessourceBar({ navigation, idRessource }) {
     };
 
     const handleBackPress = () => {
-        navigation.goBack(); 
+        navigation.goBack();
+         
     };
 
     return (

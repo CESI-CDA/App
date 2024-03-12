@@ -2,11 +2,13 @@ import React from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { colors } from "../config/color";
 
-function RessourceCard({ id, title, description }) {
+function RessourceCard({ id, title, description ,navigation }) {
   return (
     <TouchableOpacity
       activeOpacity="0.8"
-      onPress={() => console.log(id)}
+      onPress={() => {
+        navigation.navigate('Ressource', { idRessource: id }); // Envoyer l'id comme paramètre lors de la navigation
+      }}
       style={styles.container}
     >
       <View style={styles.card}>

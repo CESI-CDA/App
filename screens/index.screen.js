@@ -10,9 +10,6 @@ import { colors } from '../config/color';
 import shape1 from '../assets/images/shape1.png';
 import shape2 from '../assets/images/shape2.png';
 
-const onSigninPressed = (data) => {
-    console.log(data)
-}
 
 
 

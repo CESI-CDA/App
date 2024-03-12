@@ -6,10 +6,9 @@ import RessourceBar from "../components/RessourceBar";
 
 const { width } = Dimensions.get("window"); 
 
-const idRessource = 1; // À changer une fois la page multi-ressource finie
-const apiUrl = process.env.EXPO_PUBLIC_API_URL + '/ressources/' + idRessource;
-
-const RessourceScreen = () => {
+const RessourceScreen = ({ route, navigation }) => {
+  const { idRessource } = route.params;
+  const apiUrl = process.env.EXPO_PUBLIC_API_URL + '/ressources/' + idRessource;
   const [resourceData, setResourceData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -41,7 +40,7 @@ const RessourceScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <RessourceBar idRessource={idRessource} />
+        <RessourceBar idRessource={idRessource} navigation={navigation} />
         <View style={[styles.imageContainer, styles.shadowProp]}>
           <Image
             source={{ uri: resourceData?.url_res }}
