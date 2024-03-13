@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Loader } from "./components/Loader";
-import NavBar from "./components/TabNav";
+import NavBar from "./components/NavBar";
 import RessourcesList from "./screens/ressources_list.screen";
 import InscriptionScreen from "./screens/inscription.screen";
 import ConnexionScreen from "./screens/connexion.screen";
@@ -29,7 +29,7 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Index">
+        <Stack.Navigator initialRouteName="Ressources">
           <Stack.Screen
             name="Index"
             component={IndexScreen}

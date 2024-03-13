@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faPenClip, faCameraRetro } from "@fortawesome/free-solid-svg-icons";
 import TextInputField from "../components/TextInputField";
 import { useNavigation } from "@react-navigation/native";
+import CustomNavBar from "../components/NavBar";
 
 // URL de l'API
 const apiUrl = process.env.EXPO_PUBLIC_API_URL + "/users/4";
@@ -232,6 +233,7 @@ const UserAccountScreen = () => {
           style={styles.deleteButton}
         />
       </SafeAreaView>
+      <CustomNavBar navigation={navigation} />
     </SafeAreaProvider>
   );
 };

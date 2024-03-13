@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, ScrollView, View } from "react-native";
-import NavBar from "../components/TabNav";
+import NavBar from "../components/NavBar";
 import RessourceCard from "../components/RessourceCard";
 import { colors } from "../config/color";
 import { Loader } from "../components/Loader";
+import CustomNavBar from "../components/NavBar";
 
 export default function RessourcesList({ navigation }) {
   const [ressources, setRessources] = useState([]);
@@ -42,7 +43,9 @@ export default function RessourcesList({ navigation }) {
           ))}
         </View>
       </ScrollView>
+      <CustomNavBar navigation={navigation} />
     </View>
+    
   );
 }
 
