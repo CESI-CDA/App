@@ -3,13 +3,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Loader } from "./components/Loader";
+import NavBar from "./components/TabNav";
 import RessourcesList from "./screens/ressources_list.screen";
-import InscriptionScreen from "./screens/inscription.screen.js";
-import ConnexionScreen from "./screens/connexion.screen.js";
-import RessourceScreen from "./screens/ressource.screen.js";
-import IndexScreen from "./screens/index.screen.js";
-import TabNav from "./components/TabNav";
-import UserAccountScreen from "./screens/userAccount.screen.js";
+import InscriptionScreen from "./screens/inscription.screen";
+import ConnexionScreen from "./screens/connexion.screen";
+import RessourceScreen from "./screens/ressource.screen";
+import IndexScreen from "./screens/index.screen";
+import UserAccountScreen from "./screens/userAccount.screen";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,50 +22,50 @@ export default function App() {
     });
   }, []);
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        {loading ? (
-          <Loader />
-        ) : (
-          <Stack.Navigator initialRouteName="Index">
-            <Stack.Screen
-              name="Index"
-              component={IndexScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="TabNav"
-              component={TabNav}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Inscription"
-              component={InscriptionScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Connexion"
-              component={ConnexionScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Ressource"
-              component={RessourceScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Ressources"
-              component={RessourcesList}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="UserAccount"
-              component={UserAccountScreen}
-              options={{ headerShown: false }}
-            />
-          </Stack.Navigator>
-        )}
+        <Stack.Navigator initialRouteName="Index">
+          <Stack.Screen
+            name="Index"
+            component={IndexScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Inscription"
+            component={InscriptionScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Connexion"
+            component={ConnexionScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Ressource"
+            component={RessourceScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Ressources"
+            component={RessourcesList}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="UserAccount"
+            component={UserAccountScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="NavBar"
+            component={NavBar}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
   );

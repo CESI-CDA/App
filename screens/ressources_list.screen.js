@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, ScrollView, View, ActivityIndicator } from "react-native";
+import { StyleSheet, ScrollView, View } from "react-native";
+import NavBar from "../components/TabNav";
 import RessourceCard from "../components/RessourceCard";
 import { colors } from "../config/color";
 import { Loader } from "../components/Loader";
@@ -27,38 +28,36 @@ export default function RessourcesList({ navigation }) {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.centeredContent}>
-        {ressources.map((resource) => (
-          <RessourceCard
-            key={resource.titre_res}
-            id={resource.id}
-            title={resource.titre_res}
-            description={resource.contenu_res}
-            navigation={navigation}
-          />
-        ))}
-      </View>
-    </ScrollView>
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <View style={styles.centeredContent}>
+          {ressources.map((resource) => (
+            <RessourceCard
+              key={resource.titre_res}
+              id={resource.id}
+              title={resource.titre_res}
+              description={resource.contenu_res}
+              navigation={navigation}
+            />
+          ))}
+        </View>
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: colors.backgroundSecondary,
+  },
+  scrollView: {
     flexGrow: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
   },
   centeredContent: {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    width: "80%",
-  },
-  loaderContainer: {
-    justifyContent: "center",
-    alignItems: "center",
+    width: "100%",
   },
 });
