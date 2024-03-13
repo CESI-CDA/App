@@ -18,7 +18,7 @@ import { useNavigation } from "@react-navigation/native";
 import CustomNavBar from "../components/NavBar";
 
 // URL de l'API
-const apiUrl = process.env.EXPO_PUBLIC_API_URL + "/users/4";
+const apiUrl = process.env.EXPO_PUBLIC_API_URL + "/users/1";
 
 const UserAccountScreen = () => {
   const [userData, setUserData] = useState(null);
@@ -150,28 +150,28 @@ const UserAccountScreen = () => {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <View style={styles.header}>
-          <View style={styles.topheader}>
+        <ScrollView style={{ flex: 1 }}>
+          <View style={styles.header}>
+            <View style={styles.topheader}>
+              <Image
+                source={require("../assets/background-header-user-account.jpg")}
+                style={styles.headerImage}
+              />
+            </View>
             <Image
-              source={require("../assets/background-header-user-account.jpg")}
-              style={styles.headerImage}
+              source={{
+                uri:
+                  userData?.photo_profil ||
+                  "https://cdn.pixabay.com/photo/2017/06/13/12/54/profile-2398783_1280.png",
+              }}
+              style={styles.circle}
             />
+            <View style={styles.cameraIconContainer}>
+              <FontAwesomeIcon icon={faCameraRetro} style={styles.cameraIcon} />
+            </View>
+            <Text style={[styles.username,fonts.caption]}>{userData?.pseudonyme}</Text>
           </View>
-          <Image
-            source={{
-              uri:
-                userData?.photo_profil ||
-                "https://cdn.pixabay.com/photo/2017/06/13/12/54/profile-2398783_1280.png",
-            }}
-            style={styles.circle}
-          />
-          <View style={styles.cameraIconContainer}>
-            <FontAwesomeIcon icon={faCameraRetro} style={styles.cameraIcon} />
-          </View>
-          <Text style={styles.username}>{userData?.pseudonyme}</Text>
-        </View>
-        <View style={styles.body}>
-          <ScrollView style={{ flex: 1 }}>
+          <View style={styles.body}>
             <View style={styles.bodyheader}>
               <Text style={styles.bodytitle}>Mes infos</Text>
               <View style={styles.modifyprofile}>
@@ -222,16 +222,18 @@ const UserAccountScreen = () => {
                 editable={false}
               />
             </View>
-          </ScrollView>
-        </View>
-        <Button
-          label={
-            isEditingMode ? "Valider mes modifications" : "Supprimer mon compte"
-          }
-          theme="primary"
-          onPress={isEditingMode ? handleUpdateProfile : confirmDelete}
-          style={styles.deleteButton}
-        />
+            <Button
+              label={
+                isEditingMode
+                  ? "Valider mes modifications"
+                  : "Supprimer mon compte"
+              }
+              theme="primary"
+              onPress={isEditingMode ? handleUpdateProfile : confirmDelete}
+              style={styles.deleteButton}
+            />
+          </View>
+        </ScrollView>
       </SafeAreaView>
       <CustomNavBar navigation={navigation} />
     </SafeAreaProvider>
