@@ -1,25 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { ActivityIndicator, View } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Loader } from "./components/Loader";
 import RessourcesList from "./screens/ressources_list.screen";
 import InscriptionScreen from "./screens/inscription.screen.js";
 import ConnexionScreen from "./screens/connexion.screen.js";
 import RessourceScreen from "./screens/ressource.screen.js";
 import IndexScreen from "./screens/index.screen.js";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import TabNav from "./components/TabNav";
 import UserAccountScreen from "./screens/userAccount.screen.js";
-import { Loader } from "./components/Loader";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [loading, setLoading] = useState(true);
 
-  setTimeout(() => {
-    setLoading(false);
-  });
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    });
+  }, []);
 
   return (
     <SafeAreaProvider>
