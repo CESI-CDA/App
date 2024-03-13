@@ -10,11 +10,24 @@ const Tab = createMaterialBottomTabNavigator();
 export default function TabNav() {
   return (
     <Tab.Navigator
-      initialRouteName="Ressource"
       barStyle={{ backgroundColor: colors.backgroundSecondary }}
       activeColor={colors.primary}
       inactiveColor={colors.secondary}
     >
+      <Tab.Screen
+        name="Ressources"
+        component={RessourcesList}
+        options={{
+          tabBarIcon: () => (
+            <MaterialCommunityIcons
+              name="home"
+              color={colors.primary}
+              size={32}
+            />
+          ),
+        }}
+      />
+
       <Tab.Screen
         name="UserAccount"
         component={UserAccountScreen}
@@ -22,19 +35,6 @@ export default function TabNav() {
           tabBarIcon: () => (
             <MaterialCommunityIcons
               name="account"
-              color={colors.primary}
-              size={32}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Ressource"
-        component={RessourcesList}
-        options={{
-          tabBarIcon: () => (
-            <MaterialCommunityIcons
-              name="home"
               color={colors.primary}
               size={32}
             />
