@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFonts } from "expo-font";
 
-import RessourcesList from "./screens/ressources_list.screen"
+import RessourcesList from "./screens/ressources_list.screen";
 import InscriptionScreen from "./screens/inscription.screen.js";
 import ConnexionScreen from "./screens/connexion.screen.js";
 import RessourceScreen from "./screens/ressource.screen.js";
@@ -30,7 +30,7 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='Index'>
+        <Stack.Navigator>
           <Stack.Screen
             name="TabNav"
             component={TabNav}

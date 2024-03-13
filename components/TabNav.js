@@ -4,6 +4,7 @@ import { colors } from "../config/color";
 import IndexScreen from "../screens/index.screen";
 import RessourceScreen from "../screens/ressource.screen";
 import UserAccountScreen from "../screens/userAccount.screen";
+import RessourcesList from "../screens/ressources_list.screen";
 const Tab = createMaterialBottomTabNavigator();
 
 export default function TabNav() {
@@ -29,7 +30,7 @@ export default function TabNav() {
       />
       <Tab.Screen
         name="Ressource"
-        component={RessourceScreen}
+        component={RessourcesList}
         options={{
           tabBarIcon: () => (
             <MaterialCommunityIcons
