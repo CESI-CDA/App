@@ -12,13 +12,22 @@ import Button from "../components/Button";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { colors } from "../config/color";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faPenClip, faCameraRetro } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPenClip,
+  faCameraRetro,
+  faHeart,
+  faBoxArchive,
+} from "@fortawesome/free-solid-svg-icons";
 import TextInputField from "../components/TextInputField";
 import { useNavigation } from "@react-navigation/native";
 import CustomNavBar from "../components/NavBar";
+import StatCard from "../components/StatCard";
 
 // URL de l'API
 const apiUrl = process.env.EXPO_PUBLIC_API_URL + "/users/1";
+
+const windowWidth = Dimensions.get('window').width;
+const marginSize = 18 * 2; // Compte pour les marges marginLeft et marginRight
 
 const UserAccountScreen = () => {
   const [userData, setUserData] = useState(null);
@@ -169,8 +178,13 @@ const UserAccountScreen = () => {
             <View style={styles.cameraIconContainer}>
               <FontAwesomeIcon icon={faCameraRetro} style={styles.cameraIcon} />
             </View>
-            <Text style={[styles.username,fonts.caption]}>{userData?.pseudonyme}</Text>
+            <Text style={styles.username}>{userData?.pseudonyme}</Text>
           </View>
+          <View style={styles.cardStat}>
+      <StatCard number={15} icon={faHeart}  marginSize={marginSize} />
+      <StatCard number={3} icon={faBoxArchive} marginSize={marginSize} />
+    </View>
+    
           <View style={styles.body}>
             <View style={styles.bodyheader}>
               <Text style={styles.bodytitle}>Mes infos</Text>
@@ -291,6 +305,10 @@ const styles = StyleSheet.create({
   },
   cameraIcon: {
     color: "#000",
+  },
+  cardStat:{
+    flexDirection:'row',
+  justifyContent:'space-around'
   },
   body: {
     flex: 1,
