@@ -12,25 +12,17 @@ import Button from "../components/Button";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { colors } from "../config/color";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import {
-  faPenClip,
-  faCameraRetro,
-  faHeart,
-  faBoxArchive,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPenClip, faCameraRetro } from "@fortawesome/free-solid-svg-icons";
 import TextInputField from "../components/TextInputField";
 import { useNavigation } from "@react-navigation/native";
 import CustomNavBar from "../components/NavBar";
-import StatCard from "../components/StatCard";
 
 // URL de l'API
 const apiUrl = process.env.EXPO_PUBLIC_API_URL + "/users/1";
 
-const windowWidth = Dimensions.get('window').width;
-const marginSize = 18 * 2; // Compte pour les marges marginLeft et marginRight
-
 const UserAccountScreen = () => {
   const [userData, setUserData] = useState(null);
+  const [initialUserData, setInitialUserData] = useState(null); // Stocke les données utilisateur initiales
   const [isEditingInput, setIsEditingInput] = useState(false);
   const [isEditingMode, setIsEditingMode] = useState(false);
   const navigation = useNavigation();
@@ -49,6 +41,7 @@ const UserAccountScreen = () => {
 
         const data = await response.json();
         setUserData(data.item);
+        setInitialUserData(data.item); // Stocke les données utilisateur initiales lors de la récupération
       } catch (error) {
         console.error(
           "Erreur lors de la récupération des données de l'utilisateur:",
@@ -89,6 +82,7 @@ const UserAccountScreen = () => {
       setIsEditingInput(false);
       // Réinitialiser le mode d'édition du bouton supprimer/valider
       setIsEditingMode(false);
+      setInitialUserData(userData); // Met à jour les données utilisateur initiales après la mise à jour
     } catch (error) {
       console.error(
         "Erreur lors de la mise à jour des informations de l'utilisateur:",
@@ -152,40 +146,38 @@ const UserAccountScreen = () => {
 
   // Fonction pour activer/désactiver le mode d'édition du profil
   const handleEditProfile = () => {
-    setIsEditingInput(!isEditingInput);
+    setIsEditingInput(!isEditingInput); // Récupère les valeurs stockées initialement au clic sur "annuler les modifications"
     setIsEditingMode(!isEditingMode); // Inverse le mode Valider mes modifications versus supprimer mon compte
+    setUserData(initialUserData);
   };
+
+
 
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <ScrollView style={{ flex: 1 }}>
-          <View style={styles.header}>
-            <View style={styles.topheader}>
-              <Image
-                source={require("../assets/background-header-user-account.jpg")}
-                style={styles.headerImage}
-              />
-            </View>
+        <View style={styles.header}>
+          <View style={styles.topheader}>
             <Image
-              source={{
-                uri:
-                  userData?.photo_profil ||
-                  "https://cdn.pixabay.com/photo/2017/06/13/12/54/profile-2398783_1280.png",
-              }}
-              style={styles.circle}
+              source={require("../assets/background-header-user-account.jpg")}
+              style={styles.headerImage}
             />
-            <View style={styles.cameraIconContainer}>
-              <FontAwesomeIcon icon={faCameraRetro} style={styles.cameraIcon} />
-            </View>
-            <Text style={styles.username}>{userData?.pseudonyme}</Text>
           </View>
-          <View style={styles.cardStat}>
-      <StatCard number={15} icon={faHeart}  marginSize={marginSize} />
-      <StatCard number={3} icon={faBoxArchive} marginSize={marginSize} />
-    </View>
-    
-          <View style={styles.body}>
+          <Image
+            source={{
+              uri:
+                userData?.photo_profil ||
+                "https://cdn.pixabay.com/photo/2017/06/13/12/54/profile-2398783_1280.png",
+            }}
+            style={styles.circle}
+          />
+          <View style={styles.cameraIconContainer}>
+            <FontAwesomeIcon icon={faCameraRetro} style={styles.cameraIcon} />
+          </View>
+          <Text style={styles.username}>{userData?.pseudonyme}</Text>
+        </View>
+        <View style={styles.body}>
+          <ScrollView style={{ flex: 1 }}>
             <View style={styles.bodyheader}>
               <Text style={styles.bodytitle}>Mes infos</Text>
               <View style={styles.modifyprofile}>
@@ -236,18 +228,16 @@ const UserAccountScreen = () => {
                 editable={false}
               />
             </View>
-            <Button
-              label={
-                isEditingMode
-                  ? "Valider mes modifications"
-                  : "Supprimer mon compte"
-              }
-              theme="primary"
-              onPress={isEditingMode ? handleUpdateProfile : confirmDelete}
-              style={styles.deleteButton}
-            />
-          </View>
-        </ScrollView>
+          </ScrollView>
+        </View>
+        <Button
+          label={
+            isEditingMode ? "Valider mes modifications" : "Supprimer mon compte"
+          }
+          theme="primary"
+          onPress={isEditingMode ? handleUpdateProfile : confirmDelete}
+          style={styles.deleteButton}
+        />
       </SafeAreaView>
       <CustomNavBar navigation={navigation} />
     </SafeAreaProvider>
@@ -305,10 +295,6 @@ const styles = StyleSheet.create({
   },
   cameraIcon: {
     color: "#000",
-  },
-  cardStat:{
-    flexDirection:'row',
-  justifyContent:'space-around'
   },
   body: {
     flex: 1,
