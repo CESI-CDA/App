@@ -3,7 +3,6 @@ import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { Ionicons } from '@expo/vector-icons'; 
 import { colors } from "../config/color.js";
 
-
 const CustomNavBar = ({ navigation }) => {
 
   return (
@@ -22,6 +21,14 @@ const CustomNavBar = ({ navigation }) => {
       >
         <Ionicons name="home-outline" size={24} color='#FFF' /> 
       </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[styles.button, { justifyContent: "center" }]} 
+        onPress={() => navigation.navigate("Upload")}
+      >
+        <Ionicons name="add-circle-outline" size={24} color='#FFF' /> 
+      </TouchableOpacity>
+
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate("UserAccount")}
@@ -43,7 +50,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: 60, // Vous pouvez ajuster la hauteur si nécessaire
+    height: 60, 
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     elevation: 5,

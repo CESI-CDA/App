@@ -38,7 +38,7 @@ export default function UploadScreen({ navigation }) {
             const downloadURL = await ref.getDownloadURL(); // Récupérer l'URL de téléchargement de l'image
 
             setUploading(false);
-            setUrlRes(downloadURL); // Mettre à jour l'URL de la ressource avec l'URL de téléchargement de l'image
+            setUrlRes(downloadURL); // Mettre à jour l'URL 
             Alert.alert('Image uploaded successfully!');
         } catch (error) {
             console.error(error);
@@ -56,7 +56,6 @@ export default function UploadScreen({ navigation }) {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '', // Ajoutez le jeton CSRF si nécessaire
                 },
                 body: JSON.stringify({
                     titre_res: titreRes,
@@ -103,8 +102,7 @@ export default function UploadScreen({ navigation }) {
                     onChangeText={text => setContenuRes(text)}
                     value={contenuRes}
                 />
-                {/* URL de la ressource n'est plus une entrée utilisateur, car elle est récupérée à partir de l'image sélectionnée */}
-                <Button title="Add Resource" onPress={handleUpload} />
+                <Button title="Valider" onPress={handleUpload} />
             </View>
             <CustomNavBar navigation={navigation}/>
         </SafeAreaView>
