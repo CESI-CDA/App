@@ -10,6 +10,8 @@ import ConnexionScreen from "./screens/connexion.screen";
 import RessourceScreen from "./screens/ressource.screen";
 import IndexScreen from "./screens/index.screen";
 import UserAccountScreen from "./screens/userAccount.screen";
+import FavoriteRessourcesScreen from "./screens/favorite_ressources.screen";
+import ArchiveRessourcesScreen from "./screens/archive_ressources.screen";
 
 const Stack = createNativeStackNavigator();
 
@@ -58,6 +60,16 @@ export default function App() {
           <Stack.Screen
             name="UserAccount"
             component={UserAccountScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="FavoriteRessources"
+            component={FavoriteRessourcesScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ArchiveRessources"
+            component={ArchiveRessourcesScreen}
             options={{ headerShown: false }}
           />
           <Stack.Screen
