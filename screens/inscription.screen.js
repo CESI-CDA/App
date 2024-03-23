@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import { Text, SafeAreaView, StyleSheet, TextInput, View, Image } from 'react-native';
+import {  SafeAreaView, StyleSheet, View, Image } from 'react-native';
 import React from 'react';
-import { useForm, Controller } from "react-hook-form" // Library pour gerer les formulaires
+import { useForm } from "react-hook-form" // Library pour gerer les formulaires
 
 import { colors } from '../config/color';
 import Button from '../components/Button';
