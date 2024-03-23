@@ -18,7 +18,7 @@ import { useNavigation } from "@react-navigation/native";
 import CustomNavBar from "../components/NavBar";
 
 // URL de l'API
-const apiUrl = process.env.EXPO_PUBLIC_API_URL + "/users/1";
+const apiUrl = process.env.EXPO_PUBLIC_API_URL + "/users/2";
 
 const UserAccountScreen = () => {
   const [userData, setUserData] = useState(null);
@@ -151,8 +151,6 @@ const UserAccountScreen = () => {
     setUserData(initialUserData);
   };
 
-
-
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -167,7 +165,7 @@ const UserAccountScreen = () => {
             source={{
               uri:
                 userData?.photo_profil ||
-                "https://cdn.pixabay.com/photo/2017/06/13/12/54/profile-2398783_1280.png",
+                "https://cdn.icon-icons.com/icons2/3054/PNG/512/account_profile_user_icon_190494.png",
             }}
             style={styles.circle}
           />
@@ -227,17 +225,19 @@ const UserAccountScreen = () => {
                 }
                 editable={false}
               />
+              <Button
+                label={
+                  isEditingMode
+                    ? "Valider mes modifications"
+                    : "Supprimer mon compte"
+                }
+                theme="primary"
+                onPress={isEditingMode ? handleUpdateProfile : confirmDelete}
+                style={styles.deleteButton}
+              />
             </View>
           </ScrollView>
         </View>
-        <Button
-          label={
-            isEditingMode ? "Valider mes modifications" : "Supprimer mon compte"
-          }
-          theme="primary"
-          onPress={isEditingMode ? handleUpdateProfile : confirmDelete}
-          style={styles.deleteButton}
-        />
       </SafeAreaView>
       <CustomNavBar navigation={navigation} />
     </SafeAreaProvider>
@@ -282,6 +282,7 @@ const styles = StyleSheet.create({
     left: "50%",
     marginTop: -100,
     marginLeft: -112,
+    backgroundColor: "#F2F2F2",
   },
   cameraIconContainer: {
     position: "absolute",
@@ -319,8 +320,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    width: 125,
-    height: 30,
+    width: 140,
+    height: 40,
     backgroundColor: "#D9D9D9",
     borderRadius: 5,
     paddingHorizontal: 5,
@@ -329,7 +330,7 @@ const styles = StyleSheet.create({
     paddingRight: 8,
   },
   textmodifyprofile: {
-    fontSize: 10,
+    fontSize: 12,
     fontFamily: "Roboto-Light",
   },
   formfield: {
