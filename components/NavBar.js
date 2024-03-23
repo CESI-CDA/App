@@ -39,14 +39,19 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     backgroundColor: colors.primary,
-    height: 60,
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 60, // Vous pouvez ajuster la hauteur si nécessaire
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    elevation: 5, // Ajout de l'ombre en utilisant la propriété elevation
-    shadowColor: "#000", // Couleur de l'ombre
-    shadowOpacity: 0.3, // Opacité de l'ombre
-    shadowRadius: 3, // Rayon de l'ombre
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
   },
+  
   button: {
     flexDirection: "row", 
     alignItems: "center", 

@@ -10,6 +10,7 @@ import ConnexionScreen from "./screens/connexion.screen";
 import RessourceScreen from "./screens/ressource.screen";
 import IndexScreen from "./screens/index.screen";
 import UserAccountScreen from "./screens/userAccount.screen";
+import UploadScreen from "./screens/upload.screen";
 
 const Stack = createNativeStackNavigator();
 
@@ -29,7 +30,7 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Ressources">
+        <Stack.Navigator initialRouteName="Upload">
           <Stack.Screen
             name="Index"
             component={IndexScreen}
@@ -60,11 +61,17 @@ export default function App() {
             component={UserAccountScreen}
             options={{ headerShown: false }}
           />
+           <Stack.Screen
+            name="Upload"
+            component={UploadScreen}
+            options={{ headerShown: false }}
+          />
           <Stack.Screen
             name="NavBar"
             component={NavBar}
             options={{ headerShown: false }}
           />
+          
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
