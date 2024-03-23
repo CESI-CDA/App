@@ -12,10 +12,16 @@ import Button from "../components/Button";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { colors } from "../config/color";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faPenClip, faCameraRetro } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPenClip,
+  faCameraRetro,
+  faHeart,
+  faBoxArchive,
+} from "@fortawesome/free-solid-svg-icons";
 import TextInputField from "../components/TextInputField";
 import { useNavigation } from "@react-navigation/native";
 import CustomNavBar from "../components/NavBar";
+import StatCard from "../components/StatCard";
 
 // URL de l'API
 const apiUrl = process.env.EXPO_PUBLIC_API_URL + "/users/2";
@@ -174,8 +180,12 @@ const UserAccountScreen = () => {
           </View>
           <Text style={styles.username}>{userData?.pseudonyme}</Text>
         </View>
-        <View style={styles.body}>
-          <ScrollView style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1 }}>
+          <View style={styles.cardStat}>
+            <StatCard number={15} icon={faHeart} />
+            <StatCard number={3} icon={faBoxArchive} />
+          </View>
+          <View style={styles.body}>
             <View style={styles.bodyheader}>
               <Text style={styles.bodytitle}>Mes infos</Text>
               <View style={styles.modifyprofile}>
@@ -236,8 +246,8 @@ const UserAccountScreen = () => {
                 style={styles.deleteButton}
               />
             </View>
-          </ScrollView>
-        </View>
+          </View>
+        </ScrollView>
       </SafeAreaView>
       <CustomNavBar navigation={navigation} />
     </SafeAreaProvider>
@@ -296,6 +306,10 @@ const styles = StyleSheet.create({
   },
   cameraIcon: {
     color: "#000",
+  },
+  cardStat: {
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
   body: {
     flex: 1,
