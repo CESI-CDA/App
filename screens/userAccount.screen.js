@@ -12,16 +12,23 @@ import Button from "../components/Button";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { colors } from "../config/color";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faPenClip, faCameraRetro } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPenClip,
+  faCameraRetro,
+  faHeart,
+  faBoxArchive,
+} from "@fortawesome/free-solid-svg-icons";
 import TextInputField from "../components/TextInputField";
 import { useNavigation } from "@react-navigation/native";
 import CustomNavBar from "../components/NavBar";
+import StatCard from "../components/StatCard";
 
 // URL de l'API
-const apiUrl = process.env.EXPO_PUBLIC_API_URL + "/users/4";
+const apiUrl = process.env.EXPO_PUBLIC_API_URL + "/users/2";
 
 const UserAccountScreen = () => {
   const [userData, setUserData] = useState(null);
+  const [initialUserData, setInitialUserData] = useState(null); // Stocke les données utilisateur initiales
   const [isEditingInput, setIsEditingInput] = useState(false);
   const [isEditingMode, setIsEditingMode] = useState(false);
   const navigation = useNavigation();
@@ -40,6 +47,7 @@ const UserAccountScreen = () => {
 
         const data = await response.json();
         setUserData(data.item);
+        setInitialUserData(data.item); // Stocke les données utilisateur initiales lors de la récupération
       } catch (error) {
         console.error(
           "Erreur lors de la récupération des données de l'utilisateur:",
@@ -80,6 +88,7 @@ const UserAccountScreen = () => {
       setIsEditingInput(false);
       // Réinitialiser le mode d'édition du bouton supprimer/valider
       setIsEditingMode(false);
+      setInitialUserData(userData); // Met à jour les données utilisateur initiales après la mise à jour
     } catch (error) {
       console.error(
         "Erreur lors de la mise à jour des informations de l'utilisateur:",
@@ -143,8 +152,9 @@ const UserAccountScreen = () => {
 
   // Fonction pour activer/désactiver le mode d'édition du profil
   const handleEditProfile = () => {
-    setIsEditingInput(!isEditingInput);
+    setIsEditingInput(!isEditingInput); // Récupère les valeurs stockées initialement au clic sur "annuler les modifications"
     setIsEditingMode(!isEditingMode); // Inverse le mode Valider mes modifications versus supprimer mon compte
+    setUserData(initialUserData);
   };
 
   return (
@@ -161,7 +171,7 @@ const UserAccountScreen = () => {
             source={{
               uri:
                 userData?.photo_profil ||
-                "https://cdn.pixabay.com/photo/2017/06/13/12/54/profile-2398783_1280.png",
+                "https://cdn.icon-icons.com/icons2/3054/PNG/512/account_profile_user_icon_190494.png",
             }}
             style={styles.circle}
           />
@@ -170,8 +180,12 @@ const UserAccountScreen = () => {
           </View>
           <Text style={styles.username}>{userData?.pseudonyme}</Text>
         </View>
-        <View style={styles.body}>
-          <ScrollView style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1 }}>
+          <View style={styles.cardStat}>
+            <StatCard number={15} icon={faHeart} />
+            <StatCard number={3} icon={faBoxArchive} />
+          </View>
+          <View style={styles.body}>
             <View style={styles.bodyheader}>
               <Text style={styles.bodytitle}>Mes infos</Text>
               <View style={styles.modifyprofile}>
@@ -221,17 +235,19 @@ const UserAccountScreen = () => {
                 }
                 editable={false}
               />
+              <Button
+                label={
+                  isEditingMode
+                    ? "Valider mes modifications"
+                    : "Supprimer mon compte"
+                }
+                theme="primary"
+                onPress={isEditingMode ? handleUpdateProfile : confirmDelete}
+                style={styles.deleteButton}
+              />
             </View>
-          </ScrollView>
-        </View>
-        <Button
-          label={
-            isEditingMode ? "Valider mes modifications" : "Supprimer mon compte"
-          }
-          theme="primary"
-          onPress={isEditingMode ? handleUpdateProfile : confirmDelete}
-          style={styles.deleteButton}
-        />
+          </View>
+        </ScrollView>
       </SafeAreaView>
       <CustomNavBar navigation={navigation} />
     </SafeAreaProvider>
@@ -276,6 +292,7 @@ const styles = StyleSheet.create({
     left: "50%",
     marginTop: -100,
     marginLeft: -112,
+    backgroundColor: "#F2F2F2",
   },
   cameraIconContainer: {
     position: "absolute",
@@ -289,6 +306,10 @@ const styles = StyleSheet.create({
   },
   cameraIcon: {
     color: "#000",
+  },
+  cardStat: {
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
   body: {
     flex: 1,
@@ -313,8 +334,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    width: 125,
-    height: 30,
+    width: 140,
+    height: 40,
     backgroundColor: "#D9D9D9",
     borderRadius: 5,
     paddingHorizontal: 5,
@@ -323,7 +344,7 @@ const styles = StyleSheet.create({
     paddingRight: 8,
   },
   textmodifyprofile: {
-    fontSize: 10,
+    fontSize: 12,
     fontFamily: "Roboto-Light",
   },
   formfield: {
