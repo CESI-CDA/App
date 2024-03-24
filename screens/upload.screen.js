@@ -81,11 +81,10 @@ export default function UploadScreen({ navigation }) {
     return (
         <SafeAreaView style={styles.container}>
           
-          <Header title="Publier une ressource" onBackPress={() => navigation.goBack()} />
        
             <View style={styles.formContainer}>
                 <TouchableOpacity style={styles.selectButton} onPress={pickImage}>
-                    <Text style={styles.selectButtonText}>Pick an image</Text>
+                    <Text style={styles.selectButtonText}>Choisissez une image</Text>
                 </TouchableOpacity>
 
                 {image && <Image source={{ uri: image }} style={styles.imagePreview} />}
@@ -127,7 +126,7 @@ export default function UploadScreen({ navigation }) {
                     onChangeText={text => setRelation(text)}
                     value={relation}
                 />
-                <Button title="Validate" onPress={handleUpload} />
+                <Button title="Publier" onPress={handleUpload} />
             </View>
             <CustomNavBar navigation={navigation}/>
         </SafeAreaView>
@@ -144,7 +143,8 @@ const styles = StyleSheet.create({
     formContainer: {
         width: '90%',
         padding: 20,
-        backgroundColor: '#FFF'
+        backgroundColor: '#FFF',
+        borderRadius:5,
     },
     selectButton: {
         backgroundColor: colors.primary,
