@@ -364,7 +364,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   deleteButton: {
-    marginBottom: 10,
+    marginBottom: 75,
   },
 });
 
