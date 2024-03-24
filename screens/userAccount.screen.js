@@ -6,6 +6,7 @@ import {
   Dimensions,
   Image,
   ScrollView,
+  TouchableOpacity,
   Alert,
 } from "react-native";
 import Button from "../components/Button";
@@ -32,6 +33,12 @@ const UserAccountScreen = () => {
   const [isEditingInput, setIsEditingInput] = useState(false);
   const [isEditingMode, setIsEditingMode] = useState(false);
   const navigation = useNavigation();
+  const handleStatCardFavoritePress = () => {
+      navigation.navigate("FavoriteRessources");
+    };
+    const handleStatCardArchivePress = () => {
+      navigation.navigate("ArchiveRessources");
+    };
 
   useEffect(() => {
     // Fonction pour récupérer les données de l'utilisateur
@@ -182,8 +189,12 @@ const UserAccountScreen = () => {
         </View>
         <ScrollView style={{ flex: 1 }}>
           <View style={styles.cardStat}>
-            <StatCard number={15} icon={faHeart} />
-            <StatCard number={3} icon={faBoxArchive} />
+          <TouchableOpacity onPress={handleStatCardFavoritePress}>
+          <StatCard number={15} icon={faHeart} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleStatCardArchivePress}>
+          <StatCard number={3} icon={faBoxArchive} />
+        </TouchableOpacity>
           </View>
           <View style={styles.body}>
             <View style={styles.bodyheader}>
@@ -354,10 +365,6 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     marginBottom: 10,
-  },
-  tabNavContainer: {
-    flex: 1,
-    justifyContent: "flex-end",
   },
 });
 
