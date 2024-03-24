@@ -51,7 +51,7 @@ export default function UploadScreen({ navigation }) {
         try {
             await uploadMedia(); 
 
-            const response = await fetch('https://192.168.1.193/api/ressources', {
+            const response = await fetch(apiUrl + "/ressources", {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
