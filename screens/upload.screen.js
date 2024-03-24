@@ -8,10 +8,13 @@ import { colors } from "../config/color";
 
 export default function UploadScreen({ navigation }) {
     const [image, setImage] = useState(null);
-    const [uploading, setUploading] = useState(false);
     const [titreRes, setTitreRes] = useState('');
     const [contenuRes, setContenuRes] = useState('');
     const [urlRes, setUrlRes] = useState('');
+    const [typeRes, setTypeRes] = useState('');
+    const [categorie, setCategorie] = useState('');
+    const [visibilite, setVisibilite] = useState('');
+    const [relation, setRelation] = useState('');
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -25,8 +28,6 @@ export default function UploadScreen({ navigation }) {
     };
 
     const uploadMedia = async () => {
-        setUploading(true);
-
         try {
             const response = await fetch(image);
             const blob = await response.blob();
@@ -35,21 +36,19 @@ export default function UploadScreen({ navigation }) {
             const ref = firebase.storage().ref().child(filename);
 
             await ref.put(blob);
-            const downloadURL = await ref.getDownloadURL(); // Récupérer l'URL de téléchargement de l'image
+            const downloadURL = await ref.getDownloadURL(); 
 
-            setUploading(false);
-            setUrlRes(downloadURL); // Mettre à jour l'URL 
+            setUrlRes(downloadURL); 
             Alert.alert('Image uploaded successfully!');
         } catch (error) {
             console.error(error);
-            setUploading(false);
             Alert.alert('Error uploading image');
         }
     };
 
     const handleUpload = async () => {
         try {
-            await uploadMedia(); // Télécharger l'image avant d'ajouter la ressource
+            await uploadMedia(); 
 
             const response = await fetch('https://192.168.1.193/api/ressources', {
                 method: 'POST',
@@ -61,10 +60,10 @@ export default function UploadScreen({ navigation }) {
                     titre_res: titreRes,
                     contenu_res: contenuRes,
                     url_res: urlRes,
-                    id_type_res: 1,
-                    id_rel: 1,
-                    id_vis: 1,
-                    id_cat: 1
+                    id_type_res: typeRes,
+                    id_rel: relation,
+                    id_vis: visibilite,
+                    id_cat: categorie
                 }),
             });
             if (response.ok) {
@@ -80,29 +79,51 @@ export default function UploadScreen({ navigation }) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <TouchableOpacity style={styles.selectbutton} onPress={pickImage}>
-                <Text>Pick an image</Text>
-            </TouchableOpacity>
+            <View style={styles.formContainer}>
+                <TouchableOpacity style={styles.selectButton} onPress={pickImage}>
+                    <Text style={styles.selectButtonText}>Pick an image</Text>
+                </TouchableOpacity>
 
-            <View>
-                {image && <Image
-                    source={{ uri: image }}
-                    style={{ width: 300, height: 300 }}
-                />}
+                {image && <Image source={{ uri: image }} style={styles.imagePreview} />}
 
                 <TextInput
                     style={styles.input}
-                    placeholder="Titre de la ressource"
+                    placeholder="Title"
                     onChangeText={text => setTitreRes(text)}
                     value={titreRes}
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder="Contenu de la ressource"
+                    placeholder="Content"
                     onChangeText={text => setContenuRes(text)}
                     value={contenuRes}
+                    multiline
                 />
-                <Button title="Valider" onPress={handleUpload} />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Type of resource"
+                    onChangeText={text => setTypeRes(text)}
+                    value={typeRes}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Category"
+                    onChangeText={text => setCategorie(text)}
+                    value={categorie}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Visibility"
+                    onChangeText={text => setVisibilite(text)}
+                    value={visibilite}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Relation"
+                    onChangeText={text => setRelation(text)}
+                    value={relation}
+                />
+                <Button title="Validate" onPress={handleUpload} />
             </View>
             <CustomNavBar navigation={navigation}/>
         </SafeAreaView>
@@ -114,23 +135,36 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.backgroundPrimary,
         alignItems: "center",
-        justifyContent: "flex-start",
-      },
-    selectbutton: {
+        justifyContent: "center",
+    },
+    formContainer: {
+        width: '90%',
+        padding: 20,
+        backgroundColor: '#FFF'
+    },
+    selectButton: {
+        backgroundColor: colors.primary,
         borderRadius: 5,
-        width: 150,
-        height: 50,
-        backgroundColor: 'lightblue',
-        justifyContent: 'center',
+        padding: 10,
+        marginBottom: 10,
         alignItems: 'center',
-        marginTop: 20,
+    },
+    selectButtonText: {
+        color: '#FFF',
+        fontWeight: 'bold',
+    },
+    imagePreview: {
+        width: '100%',
+        height: 200,
+        marginBottom: 10,
+        borderRadius: 5,
     },
     input: {
         height: 40,
-        borderColor: 'gray',
+        borderColor: colors.primary,
         borderWidth: 1,
-        marginVertical: 10,
-        width: '80%',
+        marginBottom: 10,
         paddingHorizontal: 10,
+        borderRadius: 5,
     },
 });
