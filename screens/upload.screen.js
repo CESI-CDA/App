@@ -5,6 +5,7 @@ import { firebase } from '../config/firebase';
 import * as FileSystem from 'expo-file-system';
 import CustomNavBar from "../components/NavBar";
 import { colors } from "../config/color";
+import Header from "../components/Header";
 
 export default function UploadScreen({ navigation }) {
     const [image, setImage] = useState(null);
@@ -79,6 +80,9 @@ export default function UploadScreen({ navigation }) {
 
     return (
         <SafeAreaView style={styles.container}>
+          
+          <Header title="Publier une ressource" onBackPress={() => navigation.goBack()} />
+       
             <View style={styles.formContainer}>
                 <TouchableOpacity style={styles.selectButton} onPress={pickImage}>
                     <Text style={styles.selectButtonText}>Pick an image</Text>
@@ -133,7 +137,7 @@ export default function UploadScreen({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.backgroundPrimary,
+        backgroundColor: colors.backgroundSecondary,
         alignItems: "center",
         justifyContent: "center",
     },

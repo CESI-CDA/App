@@ -5,65 +5,68 @@ import { StyleSheet, ScrollView, View, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import CustomNavBar from "../components/NavBar";
-import HeaderStat from "../components/HeaderStat";
+import Header from "../components/Header";
 import MyCard from "../components/MyCard";
 
 export default function ArchiveRessourcesScreen({ navigation }) {
-  const handleBackPress = () => {
-    navigation.goBack();
-  };
-
   return (
     <SafeAreaProvider>
-    <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        <HeaderStat title="Mes Archives" onBackPress={handleBackPress} />
-      </View>
-      <ScrollView style={{ flex: 1 }}>
-        <View style={styles.body}>
-        <MyCard
-          title="Card Header"
-          imageUrl={require("../assets/fourmi.jpg")}
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae nulla in neque tincidunt lacinia. Ut ut tincidunt justo. Cras et dui at enim consequat varius."
-        />
-        <MyCard
-          title="Card Header"
-          imageUrl={require("../assets/poisson.jpg")}
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae nulla in neque tincidunt lacinia. Ut ut tincidunt justo. Cras et dui at enim consequat varius."
-        />
-        <MyCard
-          title="Card Header"
-          imageUrl={require("../assets/bebete2.jpg")}
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae nulla in neque tincidunt lacinia. Ut ut tincidunt justo. Cras et dui at enim consequat varius."
-        />
-        <MyCard
-          title="Card Header"
-          imageUrl={require("../assets/mouche.jpg")}
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae nulla in neque tincidunt lacinia. Ut ut tincidunt justo. Cras et dui at enim consequat varius."
-        />
-         <MyCard
-          title="Card Header"
-          imageUrl={require("../assets/chien1.jpg")}
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae nulla in neque tincidunt lacinia. Ut ut tincidunt justo. Cras et dui at enim consequat varius."
-        />
-         <MyCard
-          title="Card Header"
-          imageUrl={require("../assets/chien2.jpg")}
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae nulla in neque tincidunt lacinia. Ut ut tincidunt justo. Cras et dui at enim consequat varius."
-        />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-    <CustomNavBar navigation={navigation} />
-  </SafeAreaProvider>
-);
+      <SafeAreaView style={styles.container}>
+        <Header title="Mes Archives" onBackPress={() => navigation.goBack()} />
+        <ScrollView style={styles.scrollView}>
+          <View style={styles.content}>
+            <ScrollView contentContainerStyle={styles.cardContainer}>
+              <MyCard
+                title="Card Header"
+                imageUrl={require("../assets/fourmi.jpg")}
+                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae nulla in neque tincidunt lacinia. Ut ut tincidunt justo. Cras et dui at enim consequat varius."
+              />
+              <MyCard
+                title="Card Header"
+                imageUrl={require("../assets/poisson.jpg")}
+                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae nulla in neque tincidunt lacinia. Ut ut tincidunt justo. Cras et dui at enim consequat varius."
+              />
+              <MyCard
+                title="Card Header"
+                imageUrl={require("../assets/bebete2.jpg")}
+                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae nulla in neque tincidunt lacinia. Ut ut tincidunt justo. Cras et dui at enim consequat varius."
+              />
+              <MyCard
+                title="Card Header"
+                imageUrl={require("../assets/mouche.jpg")}
+                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae nulla in neque tincidunt lacinia. Ut ut tincidunt justo. Cras et dui at enim consequat varius."
+              />
+              <MyCard
+                title="Card Header"
+                imageUrl={require("../assets/chien1.jpg")}
+                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae nulla in neque tincidunt lacinia. Ut ut tincidunt justo. Cras et dui at enim consequat varius."
+              />
+              <MyCard
+                title="Card Header"
+                imageUrl={require("../assets/chien2.jpg")}
+                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae nulla in neque tincidunt lacinia. Ut ut tincidunt justo. Cras et dui at enim consequat varius."
+              />
+            </ScrollView>
+          </View>
+        </ScrollView>
+        <CustomNavBar navigation={navigation} />
+      </SafeAreaView>
+    </SafeAreaProvider>
+  );
 }
 
 const styles = StyleSheet.create({
-container: {
-  flex: 1,
-},
-body: {
-  backgroundColor: colors.backgroundSecondary,
-},
+  container: {
+    flex: 1,
+  },
+  content: {
+    flex: 1,
+  },
+  scrollView: {
+    flex: 1,
+  },
+  cardContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });

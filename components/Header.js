@@ -3,11 +3,18 @@ import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; 
 import { colors } from "../config/color";
 
-export default function HeaderStat({ title, onBackPress }) {
+export default function Header({ title, onBackPress }) {
+  
+  const handleBackPress = () => {
+    if (onBackPress) {
+      onBackPress();
+    }
+  };
+
   return (
     <View style={styles.header}>
       <View style={styles.titleandarrowheader}>
-        <Pressable onPress={onBackPress} style={styles.button}>
+        <Pressable onPress={handleBackPress} style={styles.button}>
           <Ionicons name="arrow-back" size={34} color="black" style={{ fontWeight: 'normal' }} />
         </Pressable>
         <Text style={styles.title}>{title}</Text>
@@ -19,13 +26,18 @@ export default function HeaderStat({ title, onBackPress }) {
 
 const styles = StyleSheet.create({
   header: {
-    height: 90,
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 999,
+    height: 70,
     flexDirection: "row",
     paddingLeft: 20,
     paddingRight: 20,
+    backgroundColor: colors.backgroundPrimary,
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: colors.backgroundPrimary
   },
   titleandarrowheader: {
     flexDirection: "row",

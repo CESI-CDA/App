@@ -32,7 +32,7 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Upload">
+        <Stack.Navigator initialRouteName="Index">
           <Stack.Screen
             name="Index"
             component={IndexScreen}

@@ -1,14 +1,14 @@
 import React from "react";
-import { View, Image, Text, StyleSheet } from "react-native";
+import { View, Image, Text, StyleSheet, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const MyCard = ({ title, imageUrl, content }) => {
+const ResponsiveCard = ({ title, imageUrl, content }) => {
   return (
     <View style={styles.card}>
-      <Image source={imageUrl} style={styles.cardimage} />
-      <View style={styles.contentcard}>
-        <View style={styles.titleicon}>
-          <Text style={styles.cardtitle}>{title}</Text>
+      <Image source={imageUrl} style={styles.cardImage} />
+      <View style={styles.contentCard}>
+        <View style={styles.titleAndIcon}>
+          <Text style={styles.cardTitle}>{title}</Text>
           <Ionicons
             name="ellipsis-vertical"
             size={20}
@@ -16,7 +16,7 @@ const MyCard = ({ title, imageUrl, content }) => {
             style={styles.icon}
           />
         </View>
-        <Text style={styles.contentressource} numberOfLines={4}>
+        <Text style={styles.contentResource} numberOfLines={4}>
           {content}
         </Text>
       </View>
@@ -24,32 +24,33 @@ const MyCard = ({ title, imageUrl, content }) => {
   );
 };
 
+const windowWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
   card: {
-    width: 370,
+    width: windowWidth - 40, 
     height: 140,
     marginTop: 10,
     marginLeft: 20,
     marginRight: 20,
-   
     flexDirection: "row",
   },
-  cardimage: {
+  cardImage: {
     width: 192,
     height: 120,
     marginTop: 10,
     borderRadius: 20,
   },
-  contentcard: {
+  contentCard: {
     flexDirection: "column",
     marginLeft: 15,
-    width: 160,
+    flex: 1, // Pour que le contenu prenne tout l'espace disponible
   },
-  cardtitle: {
+  cardTitle: {
     fontSize: 18,
     fontFamily: "Roboto-Bold",
   },
-  titleicon: {
+  titleAndIcon: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 17,
@@ -57,10 +58,10 @@ const styles = StyleSheet.create({
   icon: {
     marginTop: 4,
   },
-  contentressource: {
+  contentResource: {
     fontSize: 16,
-    color: '#808080'
+    color: "#808080",
   },
 });
 
-export default MyCard;
+export default ResponsiveCard;

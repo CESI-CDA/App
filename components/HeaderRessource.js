@@ -3,7 +3,7 @@ import { StyleSheet, View, Pressable, StatusBar, Platform} from 'react-native';
 import { colors } from '../config/color';
 import { FontAwesome } from '@expo/vector-icons'; 
 
-export default function RessourceBar({ navigation, idRessource }) {
+export default function HeaderRessource({ navigation, idRessource }) {
     const [isFavorite, setIsFavorite] = useState(false); // État du favori
     const [isArchived, setIsArchived] = useState(false); // État de l'archivage
     const [statusBarHeight, setStatusBarHeight] = useState(0);

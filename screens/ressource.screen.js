@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { colors } from "../config/color";
 import { fonts } from "../config/font";
-import RessourceBar from "../components/RessourceBar";
+import HeaderRessource from "../components/HeaderRessource";
 
 const { width } = Dimensions.get("window");
 
@@ -48,7 +48,7 @@ const RessourceScreen = ({ route, navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <RessourceBar idRessource={idRessource} navigation={navigation} />
+        <HeaderRessource idRessource={idRessource} navigation={navigation} />
         <View style={[styles.imageContainer, styles.shadowProp]}>
           <Image
             source={{ uri: resourceData?.url_res }}
