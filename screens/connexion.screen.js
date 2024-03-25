@@ -18,7 +18,7 @@ export default function ConnexionScreen({ navigation }) {
     console.log("Avant la redirection...");
 
     // Redirection vers la page "Ressources"
-    navigation.navigate("Ressources");
+    navigation.navigate("Home");
   };
 
   return (

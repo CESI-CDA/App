@@ -16,7 +16,7 @@ const { width } = Dimensions.get("window");
 
 const RessourceScreen = ({ route, navigation }) => {
   const { idRessource } = route.params;
-  const apiUrl = process.env.EXPO_PUBLIC_API_URL + '/ressources/' + idRessource;
+  const apiUrl = `${process.env.EXPO_PUBLIC_API_URL}/ressources/${idRessource}`;
   const [resourceData, setResourceData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -44,7 +44,6 @@ const RessourceScreen = ({ route, navigation }) => {
     );
   }
 
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -52,15 +51,14 @@ const RessourceScreen = ({ route, navigation }) => {
         <View style={[styles.imageContainer, styles.shadowProp]}>
           <Image
             source={{ uri: resourceData?.url_res }}
-            style={{ width: "100%", aspectRatio: 16 / 9  }}
+            style={{ width: "100%", aspectRatio: 16 / 9 }}
             resizeMode="cover"
-
           />
         </View>
         <View style={styles.characteristicProp}>
-          <Text style={[styles.category, fonts.caption]}>Catégorie : {resourceData?.get_categorie_ressource.intitule_cat}</Text>
-          <Text style={[styles.typeOfRelation, fonts.caption]}>Types de relations : {resourceData?.get_relation_ressource.intitule_rel}</Text>
-          <Text style={[styles.typeOfResource, fonts.caption]}>Type de ressource : {resourceData?.get_type_ressource.intitule_type_res}</Text>
+          <Text style={[styles.category, fonts.caption]}>Catégorie : {resourceData?.get_lien_ressource_categorie[0]?.get_categorie?.intitule_cat}</Text>
+          <Text style={[styles.typeOfRelation, fonts.caption]}>Types de relations : {resourceData?.get_lien_ressource_relation[0]?.get_relation_ressource?.intitule_rel}</Text>
+          <Text style={[styles.typeOfResource, fonts.caption]}>Type de ressource : {resourceData?.get_type_ressource?.intitule_type_res}</Text>
         </View>
         <View style={styles.content}>
           <Text style={[styles.title, fonts.h1]}>{resourceData?.titre_res}</Text>
@@ -81,7 +79,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2, 
     borderBottomColor: colors.secondary, 
     marginLeft: 2,
-    marginRight: 50 ,
+    marginRight: 50,
     justifyContent: 'space-between',
     paddingTop: 10,
     paddingBottom: 10,
