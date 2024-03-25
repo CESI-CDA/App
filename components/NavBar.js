@@ -17,7 +17,7 @@ const CustomNavBar = ({ navigation }) => {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate("Ressources")}
+        onPress={() => navigation.navigate("Home")}
       >
         <Ionicons name="home-outline" size={24} color='#FFF' /> 
       </TouchableOpacity>

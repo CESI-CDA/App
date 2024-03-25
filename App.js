@@ -54,7 +54,7 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="Ressources"
+            name="Home"
             component={RessourcesList}
             options={{ headerShown: false }}
           />

@@ -42,7 +42,7 @@ export default function InscriptionScreen({ navigation }) {
             const responseData = await response.json();
             console.log('User signed up successfully:', responseData);
 
-            // navigation.navigate('Home');
+            navigation.navigate('Home');
         } catch (error) {
             console.error('Error signing up:', error.message);
         }
