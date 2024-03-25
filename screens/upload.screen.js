@@ -80,8 +80,7 @@ export default function UploadScreen({ navigation }) {
 
     return (
         <SafeAreaView style={styles.container}>
-          
-       
+        
             <View style={styles.formContainer}>
                 <TouchableOpacity style={styles.selectButton} onPress={pickImage}>
                     <Text style={styles.selectButtonText}>Choisissez une image</Text>

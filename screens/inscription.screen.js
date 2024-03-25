@@ -24,7 +24,7 @@ export default function InscriptionScreen({ navigation }) {
         const pseudonyme = encodeURIComponent(data['Pseudonyme']);
 
         try {
-            const url = `${apiUrl}/users?nom=${nom}&prenom=${prenom}&pseudonyme=${pseudonyme}&email=${mail}&password=${motDePasse}`;
+            const url = `${apiUrl}/users?nom=${nom}&prenom=${prenom}&pseudonyme=${pseudonyme}&email=${mail}&password=${motDePasse}&id_rol=4`;
             console.log('URL de la requête fetch :', url);
 
             const response = await fetch(url, {
