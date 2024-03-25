@@ -7,7 +7,7 @@
     "icon": "./assets/images/5-background-remove.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/5-background-remove.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,13 +21,19 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/5-background-remove.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.proxyweb.Cube"
     },
     "web": {
       "favicon": "./assets/images/5-background-remove.png"
     },
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "7cb1cde4-f195-4464-80ef-e636e5e18f91"
+      }
+    }
   }
 }
