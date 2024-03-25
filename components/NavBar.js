@@ -10,7 +10,7 @@ const CustomNavBar = ({ navigation }) => {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate("Settings")}
+        onPress={() => navigation.navigate("ArchiveRessources")}
       >
         <Ionicons name="archive-outline" size={24} color='#FFF' /> 
       </TouchableOpacity>
